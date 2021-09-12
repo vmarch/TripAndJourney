@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-struct LoginData: Codable {
+struct LoginResponseData: Codable {
    let state, txt, uid: String
 
 }
