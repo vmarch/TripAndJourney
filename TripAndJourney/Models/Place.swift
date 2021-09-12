@@ -2,7 +2,7 @@
 //  Place.swift
 //  TripAndJourney
 //
-//  Created by Student on 12.09.21.
+//  Created by devtolife on 12.09.21.
 //
 
 import Foundation
