@@ -35,6 +35,21 @@ final class DataController: ObservableObject{
     // private var currentUserLocation: CLLocation
     
     
+    //---------------------------------------------------------------------
+   
+    init(){
+        print("DataController is initialised.")
+        checkIfUserIsLogged()
+       // checkDefaultLogin()
+    }
+    
+    //Used after getting Response from authentication server.
+    func deleteDcInstanceFromRepository(){
+        repository.dc = nil
+    }
+    
+    //---------------------------------------------
+    
     func getCurrentUserLocation(){
         userLocationManager.checkIfLocationServicesIsEnabled()
         
@@ -135,72 +150,53 @@ final class DataController: ObservableObject{
         }
         aDataFilteredList = tempFilteredList
     }
-    
-    // @State var signInData: SignInData = SignInData(email: "", pass: "")
-    
-    @State var password: String = ""
-    @State var nick: String = ""
-    
-    init(){
-        print("DataController is initialised.")
-    }
-    
-    func deleteDcInstanceFromRepository(){
-        repository.dc = nil
-    }
-    
+        
     //Authenticate with LoginName and Password
     func tryLogin(){
         print ("<<<<< DC >>>>> tryLogin() -> --1-- login: \(self.signInData.username), password: \(self.signInData.password)")
         repository.login(dc: self, signInData: signInData)
     }
     
+    //Respond by login:
+        //state = another value is an Error
+        //state = 0 - User not exist in DB
+        //state = 1 - User exist in DB but registration not confirmed by email
+        //state = 2 - User exist in DB but password is not correct
+        //state = 3 - User is logged
+        func isLoggedIn(data: LoginResponseData){
+            print("<<<<< DC >>>>> isLoggedIn() -> data: \(data)")
+            if(data.state == "3"){
+                self.userIsLoggedIn = true
+                self.viewSelector = .main
+            }else if(data.state == "2"){
+                print("Show ALLERT #2")
+                self.userIsLoggedIn = false
+                self.viewSelector = .login
+            }else if(data.state == "1"){
+                print("Show ALLERT #1")
+                self.userIsLoggedIn = false
+                self.viewSelector = .login
+            }else if(data.state == "0"){
+                print("Show ALLERT #0")
+                self.userIsLoggedIn = false
+                self.viewSelector = .login
+            }else{
+                print("Show ALLERT ERROR")
+                self.userIsLoggedIn = false
+                self.viewSelector = .login
+            }
+            // repository.dc = nil
+            deleteDcInstanceFromRepository()
+        }
+
+    
+    
     //Register with LoginName and Password
     func tryRegister(){
         print ("<<<<< DC >>>>> register: \(signUpData.email), password: \(signUpData.password)")
         repository.register(dc:self, signUpData: signUpData)
     }
-    
-    //Check on Server/FireBase if User logged
-    func checkOnServerIfUserIsLogged() {
-        print ("<<<<< DC >>>>> check if user stay logged in App")
-        repository.checkIfUserIsLogged(dc:self)
-    }
-    
-    //Repository responds
-    //Respond by login:
-    //state = another value is an Error
-    //state = 0 - User not exist in DB
-    //state = 1 - User exist in DB but registration not confirmed by email
-    //state = 2 - User exist in DB but password is not correct
-    //state = 3 - User is logged
-    func isLoggedIn(data: LoginResponseData){
-        print("<<<<< DC >>>>> isLoggedIn() -> data: \(data)")
-        if(data.state == "3"){
-            self.userIsLoggedIn = true
-            self.viewSelector = .main
-        }else if(data.state == "2"){
-            print("Show ALLERT #2")
-            self.userIsLoggedIn = false
-            self.viewSelector = .login
-        }else if(data.state == "1"){
-            print("Show ALLERT #1")
-            self.userIsLoggedIn = false
-            self.viewSelector = .login
-        }else if(data.state == "0"){
-            print("Show ALLERT #0")
-            self.userIsLoggedIn = false
-            self.viewSelector = .login
-        }else{
-            print("Show ALLERT ERROR")
-            self.userIsLoggedIn = false
-            self.viewSelector = .login
-        }
-        // repository.dc = nil
-        deleteDcInstanceFromRepository()
-    }
-    
-    
+       
     //Respond by registration:
     //state = 0 - User alreeady exist in DB
     //state = 1 - Error
@@ -227,16 +223,23 @@ final class DataController: ObservableObject{
         deleteDcInstanceFromRepository()
     }
     
-    //TODO!!!!!!!!!! CREATE !!!!!!!!!!
-    //Respond by checking if User stay still logged in App.
-    func stayLoggedInApp(data: LoginResponseData){
-        print("#######:\(data)")
-        //repository.dc = nil
-//        if(data){
-//            viewSelector = .main
-//        }else{
-//            viewSelector = .login
-//        }
+
+    
+    //Check on Server/FireBase if User logged
+    func checkIfUserIsLogged() {
+        print ("<<<<< DC >>>>> check if user stay logged in App")
+        repository.checkIfUserIsLogged(dc:self)
+    }
+    
+    func stayLoggedInApp(data: IsLoggedResponseData){
+        print("<<<<< DC >>>>> stayLoggedInApp() -> data: \(data)")
+        
+    if(data.uid != ""){
+        viewSelector = .main
+    }else{
+        viewSelector = .login
+    }
+        deleteDcInstanceFromRepository()
     }
 }
 

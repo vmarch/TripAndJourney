@@ -12,17 +12,6 @@ struct ContentView: View {
     @ObservedObject var dc:DataController = DataController()
     
     @State var viewID: Int = 1
-        
-    var formNameLogin: String = "Login"
-    var formNameRegister: String = "Registration"
-    @State var tryRegisterOrLogin:Int = 0
-    
-    @State var loginValid:Bool = false
-    
-    @State var loginNameInput:String = ""
-    @State var passwordInput:String = ""
-    
-    
     
     var body: some View {
         
@@ -31,9 +20,10 @@ struct ContentView: View {
                 LinearGradient(gradient: Gradient(colors: [.blue,.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack{
+                if(self.dc.viewSelector == .main){
                     
-                    if(self.dc.viewSelector == .main){
+                    VStack{
+                        
                         // -------------- MainViews ---------------
                         FiltersView(rankingChoice: $dc.rankingChoice.didSet(execute: { (search) in
                             self.dc.filterData()
@@ -131,69 +121,94 @@ struct ContentView: View {
                             Spacer()
                             
                         }
-                    }else if(self.dc.viewSelector == .start){
+                    }
+                    .navigationBarTitle("Top 13 Places DE", displayMode: .inline)
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarItems(trailing:
+                                            HStack{
+                        
+                        Button(action: {
+                            self.dc.isFilterActive.toggle()
+                        }, label: {
+                            if(self.dc.rankingChoice.allIsTrue()){
+                                Image(systemName: "line.3.horizontal.decrease.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.blue)
+                                    .frame(height: 16)
+                            }else{
+                                Image(systemName: "line.3.horizontal.decrease.circle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.yellow)
+                                    .frame(height: 16)
+                            }
+                        }
+                        )
+                        Button(action: {
+                            self.dc.isSearchActive.toggle()
+                        }, label: {
+                            if(self.dc.searchText == ""){
+                                Image(systemName: "magnifyingglass")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.blue)
+                                    .frame(height: 16)
+                            }else{
+                                Image(systemName: "magnifyingglass")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.yellow)
+                                    .frame(height: 16)
+                            }
+                        }
+                        )
+                    }
+                    )
+                    
+                }
+                
+                VStack{
+                    
+                    if(self.dc.viewSelector == .start){
                         // -------------- HelloView --------------
                         WellcomeView().onAppear{
-                            self.dc.checkOnServerIfUserIsLogged()
-                            self.dc.viewSelector = .login
+                            //                            self.dc.checkOnServerIfUserIsLogged()
+                            //                            self.dc.viewSelector = .login
                             
                         }
                     }else if(self.dc.viewSelector == .login){
-                            // ----------- SignInView --------------
-                            LoginView(output: $viewID.didSet(execute: { (state) in
-                                
-                                if (viewID == 1) {
-                                    self.dc.viewSelector = .login
-                                }else if(viewID == 2){
-                                    self.dc.viewSelector = .register
-                                }else if (viewID == 3) {
-                                    self.dc.viewSelector = .wait
-                                    self.tryToLogin()
-                                }
-                                
-                            }), signInData: $dc.signInData)
-                        }else if(self.dc.viewSelector == .register){
-                            // ----------- SignUpView --------------
-                            RegisterView(output: $viewID.didSet(execute: { (state) in
-                                if (viewID == 1) {
-                                    self.dc.viewSelector = .login
-                                }else if(viewID == 2){
-                                    self.dc.viewSelector = .register
-                                }else if (viewID == 3) {
-                                    self.dc.viewSelector = .wait
-                                    self.tryToRegister()
-                                }
-                            }), signUpData: $dc.signUpData)
-                        } else if(self.dc.viewSelector == .wait){
-                            // ------------ WaitView ----------------
-                            WaitView()
-                        }
-                }
-                .navigationBarTitle("Top 13 Places DE", displayMode: .inline)
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(trailing:
-                                        HStack{
-                    Button(action: {
-                        self.dc.isSearchActive.toggle()
-                    }, label: {
-                        if(self.dc.searchText == ""){
-                            Image(systemName: "magnifyingglass")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(.blue)
-                                .frame(height: 16)
-                        }else{
-                            Image(systemName: "magnifyingglass")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(.yellow)
-                                .frame(height: 16)
-                        }
+                        // ----------- SignInView --------------
+                        LoginView(output: $viewID.didSet(execute: { (state) in
+                            
+                            if (viewID == 1) {
+                                self.dc.viewSelector = .login
+                            }else if(viewID == 2){
+                                self.dc.viewSelector = .register
+                            }else if (viewID == 3) {
+                                self.dc.viewSelector = .wait
+                                self.tryToLogin()
+                            }
+                            
+                        }), signInData: $dc.signInData)
+                    }else if(self.dc.viewSelector == .register){
+                        // ----------- SignUpView --------------
+                        RegisterView(output: $viewID.didSet(execute: { (state) in
+                            if (viewID == 1) {
+                                self.dc.viewSelector = .login
+                            }else if(viewID == 2){
+                                self.dc.viewSelector = .register
+                            }else if (viewID == 3) {
+                                self.dc.viewSelector = .wait
+                                self.tryToRegister()
+                            }
+                        }), signUpData: $dc.signUpData)
+                    } else if(self.dc.viewSelector == .wait){
+                        // ------------ WaitView ----------------
+                        WaitView()
                     }
-                    )
-                   
                 }
-                )
+                
             }}
     }
     func tryToLogin(){

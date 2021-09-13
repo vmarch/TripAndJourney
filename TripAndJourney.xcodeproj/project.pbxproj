@@ -42,6 +42,7 @@
 		3FED182726EE83A3007529FE /* ViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED182626EE83A3007529FE /* ViewSelector.swift */; };
 		3FED182926EE83E9007529FE /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED182826EE83E9007529FE /* UserLocationManager.swift */; };
 		3FED185326EEAD1D007529FE /* ConectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED185226EEAD1D007529FE /* ConectData.swift */; };
+		3FFFD02C26EF7EE000244EB8 /* IsLoggedResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		3FED182626EE83A3007529FE /* ViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSelector.swift; sourceTree = "<group>"; };
 		3FED182826EE83E9007529FE /* UserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
 		3FED185226EEAD1D007529FE /* ConectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConectData.swift; sourceTree = "<group>"; };
+		3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsLoggedResponseData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,17 +116,17 @@
 		3F0DD97E26EE28B60088A347 /* TripAndJourney */ = {
 			isa = PBXGroup;
 			children = (
+				3F0DD97F26EE28B60088A347 /* TripAndJourneyApp.swift */,
+				3F0DD98D26EE290A0088A347 /* Info.plist */,
+				3F0DD98326EE28B70088A347 /* Assets.xcassets */,
+				3F0DD98126EE28B60088A347 /* ContentView.swift */,
 				3FED185126EEACB0007529FE /* IgnoreData */,
 				3FED180726EE7DC8007529FE /* DB */,
-				3F0DD98E26EE3D220088A347 /* Models */,
 				3F0DD99226EE3E230088A347 /* DataManagement */,
+				3F0DD98E26EE3D220088A347 /* Models */,
 				3F0DD98F26EE3D370088A347 /* ViewModel */,
 				3F0DD99026EE3D4F0088A347 /* Views */,
 				3F0DD99126EE3D690088A347 /* Utils */,
-				3F0DD98D26EE290A0088A347 /* Info.plist */,
-				3F0DD97F26EE28B60088A347 /* TripAndJourneyApp.swift */,
-				3F0DD98126EE28B60088A347 /* ContentView.swift */,
-				3F0DD98326EE28B70088A347 /* Assets.xcassets */,
 				3F0DD98526EE28B70088A347 /* Preview Content */,
 			);
 			path = TripAndJourney;
@@ -141,9 +143,8 @@
 		3F0DD98E26EE3D220088A347 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3FFFD02A26EF761600244EB8 /* Responses */,
 				3FFFD02926EF406400244EB8 /* Selectors */,
-				3F0DD99726EE3F7D0088A347 /* LoginResponseData.swift */,
-				3F0DD99926EE3FAA0088A347 /* RegisterResponseData.swift */,
 				3F0DD99B26EE40440088A347 /* SignInData.swift */,
 				3F0DD99D26EE405C0088A347 /* SignUpData.swift */,
 				3F0DD9A126EE41C70088A347 /* InternalUser.swift */,
@@ -266,6 +267,16 @@
 			path = Selectors;
 			sourceTree = "<group>";
 		};
+		3FFFD02A26EF761600244EB8 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */,
+				3F0DD99726EE3F7D0088A347 /* LoginResponseData.swift */,
+				3F0DD99926EE3FAA0088A347 /* RegisterResponseData.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -346,6 +357,7 @@
 				3FED185326EEAD1D007529FE /* ConectData.swift in Sources */,
 				3FED182926EE83E9007529FE /* UserLocationManager.swift in Sources */,
 				3F0DD99E26EE405C0088A347 /* SignUpData.swift in Sources */,
+				3FFFD02C26EF7EE000244EB8 /* IsLoggedResponseData.swift in Sources */,
 				3F0DD99826EE3F7D0088A347 /* LoginResponseData.swift in Sources */,
 				3FED181D26EE8180007529FE /* Ranking.swift in Sources */,
 				3FED181126EE7F50007529FE /* PlaceDetailView.swift in Sources */,

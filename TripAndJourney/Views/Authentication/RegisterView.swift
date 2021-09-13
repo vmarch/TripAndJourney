@@ -27,20 +27,20 @@ struct RegisterView: View{
         VStack{
             Section{
                 Text("Registration")
-                               .font(.system(size: 40, weight: .medium))
-                               .foregroundColor(.white)
-                               .padding()
-                           
-                           TextField("Firstname:", text: $firstNameData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Lastname:", text: $lastNameData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Nick*:", text: $nickData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Age:", text: $ageData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("City:", text: $cityData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("E-mail*:", text: $emailData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           SecureField("Password*:", text: $passData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           SecureField("Password repeat*:", text: $passRepeatData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                    .font(.system(size: 40, weight: .medium))
+                    .foregroundColor(.white)
+                    .padding()
+                
+               // TextField("Firstname:", text: $firstNameData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+               // TextField("Lastname:", text: $lastNameData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                TextField("Nick*:", text: $nickData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+              //  TextField("Age:", text: $ageData).keyboardType(.numberPad).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+              //  TextField("City:", text: $cityData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                TextField("E-mail*:", text: $emailData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                SecureField("Password*:", text: $passData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                SecureField("Password repeat*:", text: $passRepeatData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
             }
-           
+            
             HStack{
                 Link("Terms of Service.",
                      destination: URL(string: "https://www.example.com/TOS.html")!).foregroundColor(.blue)
@@ -69,7 +69,7 @@ struct RegisterView: View{
                         self.signUpData.firstName = self.firstNameData
                         self.signUpData.lastName = self.lastNameData
                         self.signUpData.nick = self.nickData
-                      //  self.signUpData.age = self.ageData
+                        self.signUpData.age = Int(self.ageData) ?? 0
                         self.signUpData.city = self.cityData
                         self.signUpData.email = self.emailData
                         self.signUpData.password =  self.passData
