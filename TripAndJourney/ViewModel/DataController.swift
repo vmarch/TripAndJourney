@@ -19,7 +19,7 @@ final class DataController: ObservableObject{
     @Published var userIsLoggedIn: Bool = false
     
     
-    @Published var signInData: SignInData = SignInData(email: "", password: "")
+    @Published var signInData: SignInData = SignInData(username: "", password: "")
     @Published var signUpData: SignUpData = SignUpData(firstName: "", lastName: "", nick: "" , age: 0 , city: "", email: "", password: "")
     
     private var aData: [Place] = []
@@ -151,7 +151,7 @@ final class DataController: ObservableObject{
     
     //Authenticate with LoginName and Password
     func tryLogin(){
-        print ("<<<<< DC >>>>> tryLogin() -> --1-- login: \(self.signInData.email), password: \(self.signInData.password)")
+        print ("<<<<< DC >>>>> tryLogin() -> --1-- login: \(self.signInData.username), password: \(self.signInData.password)")
         repository.login(dc: self, signInData: signInData)
     }
     

@@ -30,14 +30,22 @@ class Repository{
     func login(dc: DataController, signInData:SignInData){
         self.dc = dc
         if(!isInternet){
-            userLoggedIn = server.login(login: signInData.email, password: signInData.password)
+            userLoggedIn = server.login(login: signInData.username, password: signInData.password)
         }else{
           
-            print ("<<<<< Repository >>>>> login: \(signInData.email), password: \(signInData.password)")
-            let url = URL(string: "\(ConectData().testLogintEndpoint)?u=\(signInData.email)&p=\(signInData.password)")!
+            print ("<<<<< Repository >>>>> login: \(signInData.username), password: \(signInData.password)")
+            let url = URL(string: (ConectData().testLogintEndpoint))!
            
             print ("<<<<< Repository >>>>> URL: \(url)")
-            let dataTask = URLSession.shared.dataTask(with: url){ [self]
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            let bodyData: String = "username=\(signInData.username)&password=\(signInData.password)"
+            request.httpBody = bodyData.data(using: .utf8)
+            
+            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+
                 (data, response, error) in
                 
                 print (data!)
@@ -89,7 +97,6 @@ class Repository{
             let dataTask = URLSession.shared.dataTask(with: request){ [self]
                 (data, response, error) in
                
-                print ("<<<<< Repository >>>>> in dataTask")
                 print (data!)
                 print("<<<<< Repository >>>>> in dataTask \(String(data: data!,encoding: .utf8)!)")
                 
