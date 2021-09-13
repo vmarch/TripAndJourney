@@ -18,9 +18,12 @@ final class DataController: ObservableObject{
     
     @Published var userIsLoggedIn: Bool = false
     
-    
     @Published var signInData: SignInData = SignInData(username: "", password: "")
     @Published var signUpData: SignUpData = SignUpData(firstName: "", lastName: "", nick: "" , age: 0 , city: "", email: "", password: "")
+    
+    @Published var showAlert: Bool = false
+    @Published var errorTitle: String = ""
+    @Published var errorText: String = ""
     
     private var aData: [Place] = []
     @Published var aDataFilteredList: [Place] = []
@@ -44,19 +47,21 @@ final class DataController: ObservableObject{
     }
     
     //Used after getting Response from authentication server.
-    func deleteDCInstanceFromRepository(){
+    private func deleteDCInstanceFromRepository(){
         repository.dc = nil
     }
     
     //---------------------------------------------
     
-    func saveUserTokenIfIsLogged(){
-        
+   private func showAllert(showAlert:Bool, errorTitle: String, errorText: String ){
+        self.showAlert = showAlert
+        self.errorTitle = errorTitle
+        self.errorText = errorText
         
     }
     
     //---------------------------------------------
-    func getCurrentUserLocation(){
+   private func getCurrentUserLocation(){
         userLocationManager.checkIfLocationServicesIsEnabled()
         
     }
@@ -172,22 +177,29 @@ final class DataController: ObservableObject{
     func isLoggedIn(data: LoginResponseData){
         print("<<<<< DC >>>>> isLoggedIn() -> data: \(data)")
         if(data.state == "3"){
+            //Save user's Token in Preferences.
+            repository.saveLocalUserLoginToken(userToken: data.uid)
             self.userIsLoggedIn = true
             self.viewSelector = .main
         }else if(data.state == "2"){
             print("Show ALLERT #2")
+            
+            showAllert(showAlert: true, errorTitle: "Error", errorText: "Password is not correct. Please check your password!")
             self.userIsLoggedIn = false
             self.viewSelector = .login
         }else if(data.state == "1"){
             print("Show ALLERT #1")
+            showAllert(showAlert: true, errorTitle: "Info", errorText: "Please open your e-mail and confirm registration.")
             self.userIsLoggedIn = false
             self.viewSelector = .login
         }else if(data.state == "0"){
             print("Show ALLERT #0")
+            showAllert(showAlert: true, errorTitle: "Error", errorText: "This User is not registered. Check your login.")
             self.userIsLoggedIn = false
             self.viewSelector = .login
         }else{
             print("Show ALLERT ERROR")
+            showAllert(showAlert: true, errorTitle: "Error", errorText: "Something happend by login. Try to login again or use temporary gast login")
             self.userIsLoggedIn = false
             self.viewSelector = .login
         }
@@ -204,7 +216,7 @@ final class DataController: ObservableObject{
     }
     
     //Respond by registration:
-    //state = 0 - User alreeady exist in DB
+    //state = 0 - User already exist in DB
     //state = 1 - Error
     //state = 2 - //not used
     //state = 3 - User is registered. Need confirmation by email
@@ -212,24 +224,26 @@ final class DataController: ObservableObject{
         print("<<<<< DC >>>>> isPreRegistered() -> data: \(data)")
         
         if(data.state == "3"){
+            showAllert(showAlert: true, errorTitle: "Info", errorText: "User already in DataBase, but stiil waiting for  confirmation. Please open your e-mail and confirm registration.")
             self.viewSelector = .login
         }else if(data.state == "1"){
             
             print("Show ALLERT #1")
+            showAllert(showAlert: true, errorTitle: "Error", errorText: "Something happend by registration. Try to register again or use temporary gast login")
             self.viewSelector = .register
         }else if(data.state == "0"){
             
             print("Show ALLERT #0")
+            showAllert(showAlert: true, errorTitle: "Error", errorText: "This User already exist in DataBase. Please choose another name.")
             self.viewSelector = .login
         }else{
             print("Show ALLERT ERROR")
+            showAllert(showAlert: true, errorTitle: "Error", errorText: "Something happend by registration. Try to register again or use temporary gast login")
         }
         self.userIsLoggedIn = false
         // repository.dc = nil
         deleteDCInstanceFromRepository()
     }
-    
-    
     
     //Check on Server/FireBase if User logged
     func checkIfUserIsLogged() {
