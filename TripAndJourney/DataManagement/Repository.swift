@@ -55,21 +55,6 @@ class Repository{
                         
                         DispatchQueue.main.async {
                             self.dc?.isLoggedIn(data: decodedJson[0])
-//                            self.loginData = decodedJson
-//                            //    print(self.loginData)
-//                            //    print(self.loginData[0])
-//                            if(self.loginData[0].state == "3"){
-//                                self.userLoggedIn = true
-//                                print(self.loginData)
-//                            }else if(self.loginData[0].state == "2"){
-//                                self.userLoggedIn = false
-//                                print(self.loginData)
-//                            }else if(self.loginData[0].state == "1"){
-//                                self.userLoggedIn = false
-//                                print(self.loginData)
-//                            }
-//
-//                            self.loadIsFinished = true
                         }
                         
                     } else {
@@ -90,8 +75,54 @@ class Repository{
         if(!isInternet){
             userLoggedIn = server.register(login: signUpData.email, password: signUpData.password)
         }else{
-            // self.dc?.isRegistered(data: decodedJson[0])
-            // TODO CREATE REGISTER!!!!
+            print ("<<<<< Repository >>>>> login: \(signUpData.email), password: \(signUpData.password)")
+            let url = URL(string: "\(ConectData().testRegisterEndpoint)?username=\(signUpData.email)&password=\(signUpData.password)&email=\(signUpData.email)")!
+           
+            print ("<<<<< Repository >>>>> URL: \(url)")
+            let dataTask = URLSession.shared.dataTask(with: url){ [self]
+                (data, response, error) in
+               
+                print ("<<<<< Repository >>>>> in dataTask")
+                print (data!)
+                print("<<<<< Repository >>>>> in dataTask \(String(data: data!,encoding: .utf8)!)")
+                
+                do {
+                    if let d = data {
+                        print("<<<<< Repository >>>>> in dataTask \(d)")
+                        let decodedJson = try JSONDecoder().decode(RegisterResponseData.self, from: d)
+                        
+                        print("decodedJson: \(decodedJson)")
+                        print("\(dc)")
+                       // self.dc?.isLoggedIn(data: decodedJson[0])
+                        
+                        
+                        DispatchQueue.main.async {
+                            self.dc?.isPreRegistered(data: decodedJson)
+//                            self.loginData = decodedJson
+//                            //    print(self.loginData)
+//                            //    print(self.loginData[0])
+//                            if(self.loginData[0].state == "3"){
+//                                self.userLoggedIn = true
+//                                print(self.loginData)
+//                            }else if(self.loginData[0].state == "2"){
+//                                self.userLoggedIn = false
+//                                print(self.loginData)
+//                            }else if(self.loginData[0].state == "1"){
+//                                self.userLoggedIn = false
+//                                print(self.loginData)
+//                            }
+//
+//                            self.loadIsFinished = true
+                       }
+                        
+                    } else {
+                        print("NO DATA")
+                    }
+                }catch{
+                    print("ERROR")
+                }
+            }
+            dataTask.resume()
         }
     }
     

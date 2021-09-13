@@ -33,12 +33,12 @@ struct RegisterView: View{
                            
                            TextField("Firstname:", text: $firstNameData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
                            TextField("Lastname:", text: $lastNameData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Nick:", text: $nickData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("Nick*:", text: $nickData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
                            TextField("Age:", text: $ageData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
                            TextField("City:", text: $cityData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("E-mail:", text: $emailData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Password:", text: $passData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Password repeat:", text: $passRepeatData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("E-mail*:", text: $emailData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("Password*:", text: $passData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("Password repeat*:", text: $passRepeatData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
             }
            
             HStack{
