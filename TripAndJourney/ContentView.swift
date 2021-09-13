@@ -135,13 +135,13 @@ struct ContentView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(.blue)
-                                    .frame(height: 16)
+                                    .frame(height: 20)
                             }else{
                                 Image(systemName: "line.3.horizontal.decrease.circle")
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(.yellow)
-                                    .frame(height: 16)
+                                    .frame(height: 20)
                             }
                         }
                         )
@@ -153,19 +153,18 @@ struct ContentView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(.blue)
-                                    .frame(height: 16)
+                                    .frame(height: 20)
                             }else{
                                 Image(systemName: "magnifyingglass")
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(.yellow)
-                                    .frame(height: 16)
+                                    .frame(height: 20)
                             }
                         }
                         )
                     }
                     )
-                    
                 }
                 
                 VStack{

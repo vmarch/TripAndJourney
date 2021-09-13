@@ -36,20 +36,26 @@ final class DataController: ObservableObject{
     
     
     //---------------------------------------------------------------------
-   
+    
     init(){
         print("DataController is initialised.")
         checkIfUserIsLogged()
-       // checkDefaultLogin()
+        // checkDefaultLogin()
     }
     
     //Used after getting Response from authentication server.
-    func deleteDcInstanceFromRepository(){
+    func deleteDCInstanceFromRepository(){
         repository.dc = nil
     }
     
     //---------------------------------------------
     
+    func saveUserTokenIfIsLogged(){
+        
+        
+    }
+    
+    //---------------------------------------------
     func getCurrentUserLocation(){
         userLocationManager.checkIfLocationServicesIsEnabled()
         
@@ -150,7 +156,7 @@ final class DataController: ObservableObject{
         }
         aDataFilteredList = tempFilteredList
     }
-        
+    
     //Authenticate with LoginName and Password
     func tryLogin(){
         print ("<<<<< DC >>>>> tryLogin() -> --1-- login: \(self.signInData.username), password: \(self.signInData.password)")
@@ -158,37 +164,37 @@ final class DataController: ObservableObject{
     }
     
     //Respond by login:
-        //state = another value is an Error
-        //state = 0 - User not exist in DB
-        //state = 1 - User exist in DB but registration not confirmed by email
-        //state = 2 - User exist in DB but password is not correct
-        //state = 3 - User is logged
-        func isLoggedIn(data: LoginResponseData){
-            print("<<<<< DC >>>>> isLoggedIn() -> data: \(data)")
-            if(data.state == "3"){
-                self.userIsLoggedIn = true
-                self.viewSelector = .main
-            }else if(data.state == "2"){
-                print("Show ALLERT #2")
-                self.userIsLoggedIn = false
-                self.viewSelector = .login
-            }else if(data.state == "1"){
-                print("Show ALLERT #1")
-                self.userIsLoggedIn = false
-                self.viewSelector = .login
-            }else if(data.state == "0"){
-                print("Show ALLERT #0")
-                self.userIsLoggedIn = false
-                self.viewSelector = .login
-            }else{
-                print("Show ALLERT ERROR")
-                self.userIsLoggedIn = false
-                self.viewSelector = .login
-            }
-            // repository.dc = nil
-            deleteDcInstanceFromRepository()
+    //state = another value is an Error
+    //state = 0 - User not exist in DB
+    //state = 1 - User exist in DB but registration not confirmed by email
+    //state = 2 - User exist in DB but password is not correct
+    //state = 3 - User is logged
+    func isLoggedIn(data: LoginResponseData){
+        print("<<<<< DC >>>>> isLoggedIn() -> data: \(data)")
+        if(data.state == "3"){
+            self.userIsLoggedIn = true
+            self.viewSelector = .main
+        }else if(data.state == "2"){
+            print("Show ALLERT #2")
+            self.userIsLoggedIn = false
+            self.viewSelector = .login
+        }else if(data.state == "1"){
+            print("Show ALLERT #1")
+            self.userIsLoggedIn = false
+            self.viewSelector = .login
+        }else if(data.state == "0"){
+            print("Show ALLERT #0")
+            self.userIsLoggedIn = false
+            self.viewSelector = .login
+        }else{
+            print("Show ALLERT ERROR")
+            self.userIsLoggedIn = false
+            self.viewSelector = .login
         }
-
+        // repository.dc = nil
+        deleteDCInstanceFromRepository()
+    }
+    
     
     
     //Register with LoginName and Password
@@ -196,7 +202,7 @@ final class DataController: ObservableObject{
         print ("<<<<< DC >>>>> register: \(signUpData.email), password: \(signUpData.password)")
         repository.register(dc:self, signUpData: signUpData)
     }
-       
+    
     //Respond by registration:
     //state = 0 - User alreeady exist in DB
     //state = 1 - Error
@@ -204,7 +210,7 @@ final class DataController: ObservableObject{
     //state = 3 - User is registered. Need confirmation by email
     func isPreRegistered(data: RegisterResponseData){
         print("<<<<< DC >>>>> isPreRegistered() -> data: \(data)")
-
+        
         if(data.state == "3"){
             self.viewSelector = .login
         }else if(data.state == "1"){
@@ -220,26 +226,31 @@ final class DataController: ObservableObject{
         }
         self.userIsLoggedIn = false
         // repository.dc = nil
-        deleteDcInstanceFromRepository()
+        deleteDCInstanceFromRepository()
     }
     
-
+    
     
     //Check on Server/FireBase if User logged
     func checkIfUserIsLogged() {
         print ("<<<<< DC >>>>> check if user stay logged in App")
-        repository.checkIfUserIsLogged(dc:self)
+      let uid = repository.getLocalUserLoginToken()
+        if(uid != ""){
+            repository.checkIfUserIsLogged(dc:self, userToken: uid)
+        }else{
+            viewSelector = .login
+        }
     }
     
     func stayLoggedInApp(data: IsLoggedResponseData){
         print("<<<<< DC >>>>> stayLoggedInApp() -> data: \(data)")
         
-    if(data.uid != ""){
-        viewSelector = .main
-    }else{
-        viewSelector = .login
-    }
-        deleteDcInstanceFromRepository()
+        if(data.uid != ""){
+            viewSelector = .main
+        }else{
+            viewSelector = .login
+        }
+        deleteDCInstanceFromRepository()
     }
 }
 

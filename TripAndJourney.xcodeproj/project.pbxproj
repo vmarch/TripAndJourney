@@ -43,6 +43,7 @@
 		3FED182926EE83E9007529FE /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED182826EE83E9007529FE /* UserLocationManager.swift */; };
 		3FED185326EEAD1D007529FE /* ConectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED185226EEAD1D007529FE /* ConectData.swift */; };
 		3FFFD02C26EF7EE000244EB8 /* IsLoggedResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */; };
+		3FFFD02E26EFC46A00244EB8 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFD02D26EFC46A00244EB8 /* UserPreferences.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		3FED182826EE83E9007529FE /* UserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
 		3FED185226EEAD1D007529FE /* ConectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConectData.swift; sourceTree = "<group>"; };
 		3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsLoggedResponseData.swift; sourceTree = "<group>"; };
+		3FFFD02D26EFC46A00244EB8 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				3F0DD9A526EE42D10088A347 /* Extensions.swift */,
 				3FED182426EE8332007529FE /* ImageLoader.swift */,
 				3FED182826EE83E9007529FE /* UserLocationManager.swift */,
+				3FFFD02D26EFC46A00244EB8 /* UserPreferences.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				3FED181D26EE8180007529FE /* Ranking.swift in Sources */,
 				3FED181126EE7F50007529FE /* PlaceDetailView.swift in Sources */,
 				3FED181926EE80B2007529FE /* FiltersView.swift in Sources */,
+				3FFFD02E26EFC46A00244EB8 /* UserPreferences.swift in Sources */,
 				3FED180F26EE7F13007529FE /* MapView.swift in Sources */,
 				3F0DD9A626EE42D10088A347 /* Extensions.swift in Sources */,
 				3FED180926EE7DD5007529FE /* DummyServer.swift in Sources */,

@@ -20,7 +20,15 @@ class Repository{
     init(){
         
     }
-   
+    
+    func saveLocalUserLoginToken(userToken: String){
+        UserPreferences().saveLocalUserTokenIfLogged(userToken: userToken)
+    }
+    
+    func getLocalUserLoginToken() -> String{
+        return UserPreferences().getLocalUserTokenIfLogged()
+    }
+    
     //Authenticate with LoginName and Password
     func login(dc: DataController, signInData:SignInData){
         self.dc = dc
@@ -54,7 +62,7 @@ class Repository{
                         print("decodedJson: \(decodedJson)")
                         print("\(dc)")
                         // self.dc?.isLoggedIn(data: decodedJson[0])
-                        UserDefaults.standard.set(decodedJson[0].uid, forKey: "uid")
+                        
                         
                         DispatchQueue.main.async {
                             self.dc?.isLoggedIn(data: decodedJson[0])
@@ -72,7 +80,6 @@ class Repository{
             dataTask.resume()
         }
     }
-    
     
     //Register with LoginName and Password
     func register(dc: DataController, signUpData: SignUpData){
@@ -124,61 +131,54 @@ class Repository{
     }
     
     //Check on Server/FireBase/DB if User logged
-    func checkIfUserIsLogged(dc:DataController){
+    //For testing user's token == id in Server DB Table
+    func checkIfUserIsLogged(dc:DataController, userToken: String){
         self.dc = dc
-        
-        let uid = UserDefaults.standard.object(forKey: "uid") as? String ?? ""
-        
         if(!isInternet){
             userLoggedIn = server.checkIfUserIsLogged()
         }else{
-            print ("<<<<< Repository >>>>> uid: \(uid)")
-            if(uid != ""){
+            print ("<<<<< Repository >>>>> uid: \(userToken)")
+            
+            let url = URL(string: (ConectData().testIsLoggedEndpoint))!
+            
+            print ("<<<<< Repository >>>>> URL: \(url)")
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            let bodyData: String = "uid=\(userToken)"
+            request.httpBody = bodyData.data(using: .utf8)
+            
+            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+                (data, response, error) in
                 
-                let url = URL(string: (ConectData().testIsLoggedEndpoint))!
+                print (data!)
+                print("<<<<< Repository >>>>> in dataTask \(String(data: data!,encoding: .utf8)!)")
                 
-                print ("<<<<< Repository >>>>> URL: \(url)")
-                
-                var request = URLRequest(url: url)
-                request.httpMethod = "POST"
-                
-                let bodyData: String = "uid=\(uid)"
-                request.httpBody = bodyData.data(using: .utf8)
-                
-                let dataTask = URLSession.shared.dataTask(with: request){ [self]
-                    (data, response, error) in
-                    
-                    print (data!)
-                    print("<<<<< Repository >>>>> in dataTask \(String(data: data!,encoding: .utf8)!)")
-                    
-                    do {
-                        if let d = data {
-                            print("<<<<< Repository >>>>> in dataTask \(d)")
-                            let decodedJson = try JSONDecoder().decode([IsLoggedResponseData].self, from: d)
-                            
-                            print("decodedJson: \(decodedJson)")
-                            print("\(dc)")
-                                                     
-                            DispatchQueue.main.async {
-                                self.dc?.stayLoggedInApp(data: decodedJson[0])
-                            }
-                            
-                        } else {
-                            print("NO DATA")
-                            self.dc = nil
+                do {
+                    if let d = data {
+                        print("<<<<< Repository >>>>> in dataTask \(d)")
+                        let decodedJson = try JSONDecoder().decode([IsLoggedResponseData].self, from: d)
+                        
+                        print("decodedJson: \(decodedJson)")
+                        print("\(dc)")
+                        
+                        DispatchQueue.main.async {
+                            self.dc?.stayLoggedInApp(data: decodedJson[0])
                         }
-                    }catch{
+                        
+                    } else {
+                        print("NO DATA")
                         self.dc = nil
-                        print("ERROR")
                     }
-                }
-                dataTask.resume()
-            }else{
-                DispatchQueue.main.async {
-                    let isLoggedResponse:IsLoggedResponseData = IsLoggedResponseData(state: "2", txt: "User is not logged or registered.", uid: "")
-                    self.dc?.stayLoggedInApp(data: isLoggedResponse)
+                }catch{
+                    self.dc = nil
+                    print("ERROR")
                 }
             }
+            dataTask.resume()
+            
         }
     }
+    
 }
