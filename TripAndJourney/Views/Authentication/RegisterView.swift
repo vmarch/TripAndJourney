@@ -31,14 +31,14 @@ struct RegisterView: View{
                                .foregroundColor(.white)
                                .padding()
                            
-                           TextField("Firstname:", text: $firstNameData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Lastname:", text: $lastNameData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Nick*:", text: $nickData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Age:", text: $ageData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("City:", text: $cityData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("E-mail*:", text: $emailData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Password*:", text: $passData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
-                           TextField("Password repeat*:", text: $passRepeatData).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("Firstname:", text: $firstNameData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("Lastname:", text: $lastNameData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("Nick*:", text: $nickData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("Age:", text: $ageData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("City:", text: $cityData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           TextField("E-mail*:", text: $emailData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           SecureField("Password*:", text: $passData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+                           SecureField("Password repeat*:", text: $passRepeatData).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
             }
            
             HStack{
@@ -66,9 +66,15 @@ struct RegisterView: View{
                     print("PASSWORDS are not the same.")
                 }else{
                     if(termsAgreeData){
-                        output = 3
-                        signUpData = SignUpData(firstName: self.firstNameData, lastName: self.lastNameData, nick: self.nickData , age: Int(ageData) ?? 0 , city: self.cityData, email: self.emailData, password: self.passData)
+                        self.signUpData.firstName = self.firstNameData
+                        self.signUpData.lastName = self.lastNameData
+                        self.signUpData.nick = self.nickData
+                      //  self.signUpData.age = self.ageData
+                        self.signUpData.city = self.cityData
+                        self.signUpData.email = self.emailData
+                        self.signUpData.password =  self.passData
                         
+                        output = 3
                     }else{
                         print("TOGGLE IS EMPTY")
                     }
@@ -99,4 +105,4 @@ struct RegisterView_Previews: PreviewProvider {
     }
 }
 
-
+//TODO fix: //  self.signUpData.age = self.ageData

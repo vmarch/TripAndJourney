@@ -70,11 +70,11 @@ struct LoginField: View {
 struct PasswordField: View {
     @Binding var password:String
     var body: some View {
-        TextField("Password:", text: $password).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2).autocapitalization(.none)
+        SecureField("Password:", text: $password).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2).autocapitalization(.none)
     }
 }
 
-struct LoginViewView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     @State static var output:Int = 0
     @State static var signInData: SignInData = SignInData(email: "", password: "")
     static var previews: some View {

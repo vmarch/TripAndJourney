@@ -32,9 +32,6 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack{
-                    if(self.dc.userIsLoggedIn){
-                        Text("tdtttttttttt")
-                    }
                     
                     if(self.dc.viewSelector == .main){
                         // -------------- MainViews ---------------
