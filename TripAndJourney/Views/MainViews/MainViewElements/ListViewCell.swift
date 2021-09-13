@@ -12,7 +12,7 @@ struct ListViewCell: View{
     var place:Place
     var body: some View{
         HStack(spacing: 8){
-            Image(place.img)
+            Image(uiImage: place.uiimage)
                 .resizable()
                 .scaledToFit()
                 .frame(height: 80)

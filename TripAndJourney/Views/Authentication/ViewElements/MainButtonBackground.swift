@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MainActionButton: View {
+struct MainButtonBackground: View {
     var title:String
     var body: some View {
         Text(title)
@@ -20,8 +20,8 @@ struct MainActionButton: View {
     }
 }
 
-struct MainActionButton_Previews: PreviewProvider {
+struct MainButtonBackground_Previews: PreviewProvider {
     static var previews: some View {
-        MainActionButton(title: "")
+        MainButtonBackground(title: "")
     }
 }

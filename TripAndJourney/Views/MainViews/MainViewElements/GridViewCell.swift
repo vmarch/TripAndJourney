@@ -11,7 +11,7 @@ struct GridViewCell: View {
     var place:Place
     var body: some View{
         VStack(spacing: 4){
-            Image(place.img)
+            Image(uiImage: place.uiimage)
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(10)

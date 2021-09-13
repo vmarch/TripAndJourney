@@ -23,7 +23,7 @@
 		3FED17FB26EE78E1007529FE /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17FA26EE78E1007529FE /* RegisterView.swift */; };
 		3FED17FD26EE7960007529FE /* WellcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17FC26EE7960007529FE /* WellcomeView.swift */; };
 		3FED17FF26EE7B76007529FE /* WaitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17FE26EE7B76007529FE /* WaitView.swift */; };
-		3FED180226EE7CCE007529FE /* MainActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180126EE7CCE007529FE /* MainActionButton.swift */; };
+		3FED180226EE7CCE007529FE /* MainButtonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180126EE7CCE007529FE /* MainButtonBackground.swift */; };
 		3FED180426EE7D3C007529FE /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180326EE7D3C007529FE /* DataController.swift */; };
 		3FED180626EE7D89007529FE /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180526EE7D89007529FE /* Repository.swift */; };
 		3FED180926EE7DD5007529FE /* DummyServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180826EE7DD5007529FE /* DummyServer.swift */; };
@@ -63,7 +63,7 @@
 		3FED17FA26EE78E1007529FE /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		3FED17FC26EE7960007529FE /* WellcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellcomeView.swift; sourceTree = "<group>"; };
 		3FED17FE26EE7B76007529FE /* WaitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitView.swift; sourceTree = "<group>"; };
-		3FED180126EE7CCE007529FE /* MainActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainActionButton.swift; sourceTree = "<group>"; };
+		3FED180126EE7CCE007529FE /* MainButtonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonBackground.swift; sourceTree = "<group>"; };
 		3FED180326EE7D3C007529FE /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		3FED180526EE7D89007529FE /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3FED180826EE7DD5007529FE /* DummyServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyServer.swift; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 		3FED180026EE7BA2007529FE /* ViewElements */ = {
 			isa = PBXGroup;
 			children = (
-				3FED180126EE7CCE007529FE /* MainActionButton.swift */,
+				3FED180126EE7CCE007529FE /* MainButtonBackground.swift */,
 			);
 			path = ViewElements;
 			sourceTree = "<group>";
@@ -332,7 +332,7 @@
 				3FED180B26EE7EC0007529FE /* ListView.swift in Sources */,
 				3FED182526EE8332007529FE /* ImageLoader.swift in Sources */,
 				3FED182726EE83A3007529FE /* ViewSelector.swift in Sources */,
-				3FED180226EE7CCE007529FE /* MainActionButton.swift in Sources */,
+				3FED180226EE7CCE007529FE /* MainButtonBackground.swift in Sources */,
 				3F0DD9A226EE41C70088A347 /* InternalUser.swift in Sources */,
 				3F0DD9A026EE40990088A347 /* LookingAs.swift in Sources */,
 				3FED185326EEAD1D007529FE /* ConectData.swift in Sources */,

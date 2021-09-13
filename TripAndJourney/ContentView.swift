@@ -143,7 +143,7 @@ struct ContentView: View {
                         }
                     }else if(self.dc.viewSelector == .login){
                             // ----------- SignInView --------------
-                            SignInView(output: $viewID.didSet(execute: { (state) in
+                            LoginView(output: $viewID.didSet(execute: { (state) in
                                 
                                 if (viewID == 1) {
                                     self.dc.viewSelector = .login
@@ -157,7 +157,7 @@ struct ContentView: View {
                             }), signInData: $dc.signInData)
                         }else if(self.dc.viewSelector == .register){
                             // ----------- SignUpView --------------
-                            SignUpView(output: $viewID.didSet(execute: { (state) in
+                            RegisterView(output: $viewID.didSet(execute: { (state) in
                                 if (viewID == 1) {
                                     self.dc.viewSelector = .login
                                 }else if(viewID == 2){
