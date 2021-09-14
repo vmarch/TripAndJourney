@@ -13,11 +13,15 @@ class UserPreferences{
         
     }
     
-    func saveLocalUserTokenIfLogged(userToken: String){
+    func setUserTokenInApp(userToken: String){
         pref.set(userToken, forKey: "usertoken")
     }
     
-    func getLocalUserTokenIfLogged() -> String{
+    func getUserTokenSavedInApp() -> String{
         pref.object(forKey: "usertoken") as? String ?? ""
+    }
+    
+    func clearUserTokenSavedInApp(){
+        setUserTokenInApp(userToken: "")
     }
 }

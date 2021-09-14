@@ -119,6 +119,18 @@ struct ContentView: View {
                             }
                             )
                             Spacer()
+                            Button(action: {
+                                self.dc.logOut()
+                            }, label: {
+                                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.yellow)
+                                        .frame(height: 20)
+                               
+                            }
+                            )
+                            Spacer()
                             
                         }
                     }

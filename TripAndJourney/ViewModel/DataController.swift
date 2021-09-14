@@ -43,7 +43,7 @@ final class DataController: ObservableObject{
     init(){
         print("DataController is initialised.")
         checkIfUserIsLogged()
-        // checkDefaultLogin()
+      
     }
     
     //Used after getting Response from authentication server.
@@ -178,9 +178,11 @@ final class DataController: ObservableObject{
         print("<<<<< DC >>>>> isLoggedIn() -> data: \(data)")
         if(data.state == "3"){
             //Save user's Token in Preferences.
-            repository.saveLocalUserLoginToken(userToken: data.uid)
+            
+            repository.saveUserTokenInApp(userToken: data.uid)
             self.userIsLoggedIn = true
             self.viewSelector = .main
+            
         }else if(data.state == "2"){
             print("Show ALLERT #2")
             
@@ -247,24 +249,28 @@ final class DataController: ObservableObject{
     
     //Check on Server/FireBase if User logged
     func checkIfUserIsLogged() {
-        print ("<<<<< DC >>>>> check if user stay logged in App")
-      let uid = repository.getLocalUserLoginToken()
+        // Check if user stay logged in App
+      let uid = repository.checkUserTokenInApp()
         if(uid != ""){
-            repository.checkIfUserIsLogged(dc:self, userToken: uid)
+            repository.checkOnServerIfCurrentUserIsLogged(dc:self, userToken: uid)
         }else{
             viewSelector = .login
         }
     }
     
-    func stayLoggedInApp(data: IsLoggedResponseData){
-        print("<<<<< DC >>>>> stayLoggedInApp() -> data: \(data)")
-        
+    func isStayLoggedInApp(data: IsLoggedResponseData){
         if(data.uid != ""){
             viewSelector = .main
         }else{
             viewSelector = .login
         }
         deleteDCInstanceFromRepository()
+    }
+    
+    func logOut(){
+        repository.logout()
+        userIsLoggedIn = false
+        viewSelector = .login
     }
 }
 
