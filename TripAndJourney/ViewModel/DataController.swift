@@ -12,7 +12,7 @@ final class DataController: ObservableObject{
     
     private var repository: Repository = Repository()
     
-    @Published var viewSelector:ViewSelector = .start
+    @Published var viewSelector: ViewSelector = .start
     
     @StateObject private var userLocationManager = UserLocationManager()
     

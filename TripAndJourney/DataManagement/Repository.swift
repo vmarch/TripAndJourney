@@ -13,8 +13,6 @@ class Repository{
     var userLoggedIn: Bool = false
     
     var dc:DataController? = nil
-
-    private var loginResponseData: [LoginResponseData] = []
     
     init(){}
     
