@@ -8,5 +8,5 @@
 import Foundation
 
 struct SignInData {
-    var email, password: String
+    var username, password: String
 }

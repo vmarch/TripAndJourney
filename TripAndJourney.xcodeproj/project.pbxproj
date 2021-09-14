@@ -19,11 +19,12 @@
 		3F0DD9A226EE41C70088A347 /* InternalUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0DD9A126EE41C70088A347 /* InternalUser.swift */; };
 		3F0DD9A426EE42490088A347 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0DD9A326EE42490088A347 /* Place.swift */; };
 		3F0DD9A626EE42D10088A347 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0DD9A526EE42D10088A347 /* Extensions.swift */; };
+		3F2E085026F0C4EF005B4EB1 /* LoginStatusResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E084F26F0C4EF005B4EB1 /* LoginStatusResponseData.swift */; };
 		3FED17F926EE7827007529FE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17F826EE7827007529FE /* LoginView.swift */; };
 		3FED17FB26EE78E1007529FE /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17FA26EE78E1007529FE /* RegisterView.swift */; };
 		3FED17FD26EE7960007529FE /* WellcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17FC26EE7960007529FE /* WellcomeView.swift */; };
 		3FED17FF26EE7B76007529FE /* WaitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17FE26EE7B76007529FE /* WaitView.swift */; };
-		3FED180226EE7CCE007529FE /* MainActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180126EE7CCE007529FE /* MainActionButton.swift */; };
+		3FED180226EE7CCE007529FE /* MainButtonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180126EE7CCE007529FE /* MainButtonBackground.swift */; };
 		3FED180426EE7D3C007529FE /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180326EE7D3C007529FE /* DataController.swift */; };
 		3FED180626EE7D89007529FE /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180526EE7D89007529FE /* Repository.swift */; };
 		3FED180926EE7DD5007529FE /* DummyServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED180826EE7DD5007529FE /* DummyServer.swift */; };
@@ -42,6 +43,8 @@
 		3FED182726EE83A3007529FE /* ViewSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED182626EE83A3007529FE /* ViewSelector.swift */; };
 		3FED182926EE83E9007529FE /* UserLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED182826EE83E9007529FE /* UserLocationManager.swift */; };
 		3FED185326EEAD1D007529FE /* ConectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED185226EEAD1D007529FE /* ConectData.swift */; };
+		3FFFD02C26EF7EE000244EB8 /* IsLoggedResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */; };
+		3FFFD02E26EFC46A00244EB8 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFFD02D26EFC46A00244EB8 /* UserPreferences.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,11 +62,12 @@
 		3F0DD9A126EE41C70088A347 /* InternalUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalUser.swift; sourceTree = "<group>"; };
 		3F0DD9A326EE42490088A347 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		3F0DD9A526EE42D10088A347 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3F2E084F26F0C4EF005B4EB1 /* LoginStatusResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStatusResponseData.swift; sourceTree = "<group>"; };
 		3FED17F826EE7827007529FE /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3FED17FA26EE78E1007529FE /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		3FED17FC26EE7960007529FE /* WellcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellcomeView.swift; sourceTree = "<group>"; };
 		3FED17FE26EE7B76007529FE /* WaitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitView.swift; sourceTree = "<group>"; };
-		3FED180126EE7CCE007529FE /* MainActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainActionButton.swift; sourceTree = "<group>"; };
+		3FED180126EE7CCE007529FE /* MainButtonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonBackground.swift; sourceTree = "<group>"; };
 		3FED180326EE7D3C007529FE /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		3FED180526EE7D89007529FE /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3FED180826EE7DD5007529FE /* DummyServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyServer.swift; sourceTree = "<group>"; };
@@ -82,6 +86,8 @@
 		3FED182626EE83A3007529FE /* ViewSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSelector.swift; sourceTree = "<group>"; };
 		3FED182826EE83E9007529FE /* UserLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationManager.swift; sourceTree = "<group>"; };
 		3FED185226EEAD1D007529FE /* ConectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConectData.swift; sourceTree = "<group>"; };
+		3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsLoggedResponseData.swift; sourceTree = "<group>"; };
+		3FFFD02D26EFC46A00244EB8 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,17 +120,17 @@
 		3F0DD97E26EE28B60088A347 /* TripAndJourney */ = {
 			isa = PBXGroup;
 			children = (
+				3F0DD97F26EE28B60088A347 /* TripAndJourneyApp.swift */,
+				3F0DD98D26EE290A0088A347 /* Info.plist */,
+				3F0DD98326EE28B70088A347 /* Assets.xcassets */,
+				3F0DD98126EE28B60088A347 /* ContentView.swift */,
 				3FED185126EEACB0007529FE /* IgnoreData */,
 				3FED180726EE7DC8007529FE /* DB */,
-				3F0DD98E26EE3D220088A347 /* Models */,
 				3F0DD99226EE3E230088A347 /* DataManagement */,
+				3F0DD98E26EE3D220088A347 /* Models */,
 				3F0DD98F26EE3D370088A347 /* ViewModel */,
 				3F0DD99026EE3D4F0088A347 /* Views */,
 				3F0DD99126EE3D690088A347 /* Utils */,
-				3F0DD98D26EE290A0088A347 /* Info.plist */,
-				3F0DD97F26EE28B60088A347 /* TripAndJourneyApp.swift */,
-				3F0DD98126EE28B60088A347 /* ContentView.swift */,
-				3F0DD98326EE28B70088A347 /* Assets.xcassets */,
 				3F0DD98526EE28B70088A347 /* Preview Content */,
 			);
 			path = TripAndJourney;
@@ -141,15 +147,13 @@
 		3F0DD98E26EE3D220088A347 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3F0DD99726EE3F7D0088A347 /* LoginResponseData.swift */,
-				3F0DD99926EE3FAA0088A347 /* RegisterResponseData.swift */,
+				3FFFD02A26EF761600244EB8 /* Responses */,
+				3FFFD02926EF406400244EB8 /* Selectors */,
 				3F0DD99B26EE40440088A347 /* SignInData.swift */,
 				3F0DD99D26EE405C0088A347 /* SignUpData.swift */,
-				3F0DD99F26EE40990088A347 /* LookingAs.swift */,
 				3F0DD9A126EE41C70088A347 /* InternalUser.swift */,
 				3F0DD9A326EE42490088A347 /* Place.swift */,
 				3FED181C26EE8180007529FE /* Ranking.swift */,
-				3FED182626EE83A3007529FE /* ViewSelector.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,6 +181,7 @@
 				3F0DD9A526EE42D10088A347 /* Extensions.swift */,
 				3FED182426EE8332007529FE /* ImageLoader.swift */,
 				3FED182826EE83E9007529FE /* UserLocationManager.swift */,
+				3FFFD02D26EFC46A00244EB8 /* UserPreferences.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -217,7 +222,7 @@
 		3FED180026EE7BA2007529FE /* ViewElements */ = {
 			isa = PBXGroup;
 			children = (
-				3FED180126EE7CCE007529FE /* MainActionButton.swift */,
+				3FED180126EE7CCE007529FE /* MainButtonBackground.swift */,
 			);
 			path = ViewElements;
 			sourceTree = "<group>";
@@ -256,6 +261,26 @@
 				3FED185226EEAD1D007529FE /* ConectData.swift */,
 			);
 			path = IgnoreData;
+			sourceTree = "<group>";
+		};
+		3FFFD02926EF406400244EB8 /* Selectors */ = {
+			isa = PBXGroup;
+			children = (
+				3F0DD99F26EE40990088A347 /* LookingAs.swift */,
+				3FED182626EE83A3007529FE /* ViewSelector.swift */,
+			);
+			path = Selectors;
+			sourceTree = "<group>";
+		};
+		3FFFD02A26EF761600244EB8 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				3FFFD02B26EF7EE000244EB8 /* IsLoggedResponseData.swift */,
+				3F0DD99726EE3F7D0088A347 /* LoginResponseData.swift */,
+				3F0DD99926EE3FAA0088A347 /* RegisterResponseData.swift */,
+				3F2E084F26F0C4EF005B4EB1 /* LoginStatusResponseData.swift */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,16 +357,18 @@
 				3FED180B26EE7EC0007529FE /* ListView.swift in Sources */,
 				3FED182526EE8332007529FE /* ImageLoader.swift in Sources */,
 				3FED182726EE83A3007529FE /* ViewSelector.swift in Sources */,
-				3FED180226EE7CCE007529FE /* MainActionButton.swift in Sources */,
+				3FED180226EE7CCE007529FE /* MainButtonBackground.swift in Sources */,
 				3F0DD9A226EE41C70088A347 /* InternalUser.swift in Sources */,
 				3F0DD9A026EE40990088A347 /* LookingAs.swift in Sources */,
 				3FED185326EEAD1D007529FE /* ConectData.swift in Sources */,
 				3FED182926EE83E9007529FE /* UserLocationManager.swift in Sources */,
 				3F0DD99E26EE405C0088A347 /* SignUpData.swift in Sources */,
+				3FFFD02C26EF7EE000244EB8 /* IsLoggedResponseData.swift in Sources */,
 				3F0DD99826EE3F7D0088A347 /* LoginResponseData.swift in Sources */,
 				3FED181D26EE8180007529FE /* Ranking.swift in Sources */,
 				3FED181126EE7F50007529FE /* PlaceDetailView.swift in Sources */,
 				3FED181926EE80B2007529FE /* FiltersView.swift in Sources */,
+				3FFFD02E26EFC46A00244EB8 /* UserPreferences.swift in Sources */,
 				3FED180F26EE7F13007529FE /* MapView.swift in Sources */,
 				3F0DD9A626EE42D10088A347 /* Extensions.swift in Sources */,
 				3FED180926EE7DD5007529FE /* DummyServer.swift in Sources */,
@@ -356,6 +383,7 @@
 				3FED181B26EE813D007529FE /* RankingView.swift in Sources */,
 				3FED180626EE7D89007529FE /* Repository.swift in Sources */,
 				3FED17FF26EE7B76007529FE /* WaitView.swift in Sources */,
+				3F2E085026F0C4EF005B4EB1 /* LoginStatusResponseData.swift in Sources */,
 				3FED180426EE7D3C007529FE /* DataController.swift in Sources */,
 				3FED181F26EE81CF007529FE /* SearchView.swift in Sources */,
 				3F0DD98026EE28B60088A347 /* TripAndJourneyApp.swift in Sources */,

@@ -5,4 +5,8 @@
 //  Created by devtolife on 12.09.21.
 //
 
-import Foundation
+import SwiftUI
+struct RegisterResponseData: Codable {
+   let state, txt: String
+
+}

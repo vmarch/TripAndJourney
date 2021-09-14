@@ -12,66 +12,180 @@ class Repository{
     
     var userLoggedIn: Bool = false
     
-    var loadIsFinished: Bool = false
     var dc:DataController? = nil
-    //  private var loginData: LoginData = LoginData(state: "", txt: "", uid: "")
+
     private var loginResponseData: [LoginResponseData] = []
     
-    init(){
+    init(){}
+    
+    //Check on Server if User is logged
+    //For testing user's token == id in Server DB Table
+    func checkOnServerIfCurrentUserIsLogged(dc:DataController, userToken: String){
+        self.dc = dc
         
+        if(!isInternet){
+            print("Show allert = No Internet")
+        }else{
+            let url = URL(string: (ConectData().testIsLoggedEndpoint))!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            let bodyData: String = "uid=\(userToken)"
+            request.httpBody = bodyData.data(using: .utf8)
+            
+            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+                (data, response, error) in
+                do {
+                    if let d = data {
+                        let decodedJson = try JSONDecoder().decode([IsLoggedResponseData].self, from: d)
+
+                        DispatchQueue.main.async {
+                            self.dc?.isStayLoggedInApp(data: decodedJson[0])
+                        }
+                        //If on server User status is not logged -> delete current user token in app.
+                        if(decodedJson[0].state == "2"||decodedJson[0].state == "0"){
+                            deleteUserTokenInApp()
+                        }
+                        
+                    } else {
+                        print("NO DATA")
+                        self.dc = nil
+                    }
+                }catch{
+                    print("ERROR")
+                    self.dc = nil
+                }
+            }
+            dataTask.resume()
+            
+        }
     }
     
-//    init(dc:DataController){
-//        self.dc = dc
-//    }
+    //Check if some Token is saved in App.
+    func checkUserTokenInApp() -> String{
+        return UserPreferences().getUserTokenSavedInApp()
+    }
     
+    //Save User's Token in App
+    func saveUserTokenInApp(userToken: String){
+        UserPreferences().setUserTokenInApp(userToken: userToken)
+    }
+    
+    private func deleteUserTokenInApp() {
+        //Clear User Token which was saved in app.
+        UserPreferences().clearUserTokenSavedInApp()
+    }
     
     //Authenticate with LoginName and Password
     func login(dc: DataController, signInData:SignInData){
         self.dc = dc
+        
         if(!isInternet){
-            userLoggedIn = server.login(login: signInData.email, password: signInData.password)
+            userLoggedIn = server.login(login: signInData.username, password: signInData.password)
         }else{
-          
-            print ("<<<<< Repository >>>>> login: \(signInData.email), password: \(signInData.password)")
-            let url = URL(string: "\(ConectData().testLogintEndpoint)?u=\(signInData.email)&p=\(signInData.password)")!
-           
-            print ("<<<<< Repository >>>>> URL: \(url)")
-            let dataTask = URLSession.shared.dataTask(with: url){ [self]
+            let url = URL(string: (ConectData().testLogintEndpoint))!
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            let bodyData: String = "username=\(signInData.username)&password=\(signInData.password)"
+            request.httpBody = bodyData.data(using: .utf8)
+            
+            let dataTask = URLSession.shared.dataTask(with: request){ [self]
                 (data, response, error) in
-                
-                print (data!)
-                print(String(data: data!,encoding: .utf8)!)
-                
                 do {
                     if let d = data {
                         
                         let decodedJson = try JSONDecoder().decode([LoginResponseData].self, from: d)
-                        
-                        print("decodedJson: \(decodedJson)")
-                        print("\(dc)")
-                       // self.dc?.isLoggedIn(data: decodedJson[0])
-                        
-                        
+
                         DispatchQueue.main.async {
                             self.dc?.isLoggedIn(data: decodedJson[0])
-//                            self.loginData = decodedJson
-//                            //    print(self.loginData)
-//                            //    print(self.loginData[0])
-//                            if(self.loginData[0].state == "3"){
-//                                self.userLoggedIn = true
-//                                print(self.loginData)
-//                            }else if(self.loginData[0].state == "2"){
-//                                self.userLoggedIn = false
-//                                print(self.loginData)
-//                            }else if(self.loginData[0].state == "1"){
-//                                self.userLoggedIn = false
-//                                print(self.loginData)
-//                            }
-//
-//                            self.loadIsFinished = true
+                        }
+                        //Change user login status on server if user logged in.
+                        if(decodedJson[0].state == "3"){
+                            changeUserLoginStatusOnServer(userToken:decodedJson[0].uid,changeStatusTo: true)
                         }
                         
+                    } else {
+                        print("NO DATA")
+                        self.dc = nil
+                    }
+                }catch{
+                    print("ERROR")
+                    self.dc = nil
+                }
+            }
+            dataTask.resume()
+        }
+    }
+    
+    //Register with LoginName and Password
+    func register(dc: DataController, signUpData: SignUpData){
+        self.dc = dc
+        if(!isInternet){
+            userLoggedIn = server.register(login: signUpData.email, password: signUpData.password)
+        }else{
+            let url = URL(string: (ConectData().testRegisterEndpoint))!
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            
+            let bodyData: String = "username=\(signUpData.email)&password=\(signUpData.password)&email=\(signUpData.email)"
+            request.httpBody = bodyData.data(using: .utf8)
+            
+            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+                (data, response, error) in
+                do {
+                    if let d = data {
+                        let decodedJson = try JSONDecoder().decode([RegisterResponseData].self, from: d)
+                        
+                        DispatchQueue.main.async {
+                            self.dc?.isPreRegistered(data: decodedJson[0])
+                        }
+                        
+                    } else {
+                        print("NO DATA")
+                        self.dc = nil
+                    }
+                }catch{
+                    print("ERROR")
+                    self.dc = nil
+                }
+            }
+            dataTask.resume()
+        }
+    }
+    
+    //Change User's login status on server.
+    //For testing user's "token" == "id" of user in Server Table
+    private func changeUserLoginStatusOnServer(userToken: String, changeStatusTo:Bool){
+        
+        if(!isInternet){
+            print("Show allert = NO INTERNET")
+        }else{
+            let url = URL(string: (ConectData().testChangeUserLoginStatusEndpoint))!
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            var status: String
+            if(changeStatusTo){
+                status = "1"
+            }else{
+                status = "0"
+            }
+            let bodyData: String = "uid=\(userToken)&status=\(status)"
+            request.httpBody = bodyData.data(using: .utf8)
+            
+            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+                (data, response, error) in
+
+                do {
+                    if let d = data {
+
+                        let decodedJson = try JSONDecoder().decode([LoginStatusResponseData].self, from: d)
+                        //  DispatchQueue.main.async {
+                        //      self.dc?.isStayLoggedInApp(data: decodedJson[0])
+                        //  }
                     } else {
                         print("NO DATA")
                     }
@@ -83,26 +197,10 @@ class Repository{
         }
     }
     
-    
-    //Register with LoginName and Password
-    func register(dc: DataController, signUpData: SignUpData){
-        self.dc = dc
-        if(!isInternet){
-            userLoggedIn = server.register(login: signUpData.email, password: signUpData.password)
-        }else{
-            // self.dc?.isRegistered(data: decodedJson[0])
-            // TODO CREATE REGISTER!!!!
-        }
-    }
-    
-    //Check on Server/FireBase/DB if User logged
-    func checkIfUserIsLogged(dc:DataController){
-        self.dc = dc
-        if(!isInternet){
-            userLoggedIn = server.checkIfUserIsLogged()
-        }else{
-            // self.dc?.isRegistered(data: decodedJson[0])
-            // TODO CREATE CHECKING IF USER STAY LOGED IN APP!!!!
-        }
+    //Logout from Server and App.
+    //For testing user's token == id in Server DB Table
+    func logout(){
+        changeUserLoginStatusOnServer(userToken:checkUserTokenInApp(),changeStatusTo: false)
+        deleteUserTokenInApp()
     }
 }

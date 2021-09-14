@@ -27,9 +27,9 @@ struct LoginView: View{
             Button(action:{
                 if(!self.loginData.isEmpty && !self.passData.isEmpty){
                   
-                    self.signInData.email = self.loginData
+                    self.signInData.username = self.loginData
                     self.signInData.password = self.passData
-                    print ("<<<<< SignInView >>>>> login: \(signInData.email), password: \(signInData.password)")
+                    print ("<<<<< SignInView >>>>> login: \(signInData.username), password: \(signInData.password)")
                     output = 3
                 }else{
                     print("Login and Password may not be Empty")
@@ -70,13 +70,13 @@ struct LoginField: View {
 struct PasswordField: View {
     @Binding var password:String
     var body: some View {
-        TextField("Password:", text: $password).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2).autocapitalization(.none)
+        SecureField("Password:", text: $password).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2).autocapitalization(.none)
     }
 }
 
-struct LoginViewView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     @State static var output:Int = 0
-    @State static var signInData: SignInData = SignInData(email: "", password: "")
+    @State static var signInData: SignInData = SignInData(username: "", password: "")
     static var previews: some View {
         LoginView(output: $output, signInData: $signInData)
     }
