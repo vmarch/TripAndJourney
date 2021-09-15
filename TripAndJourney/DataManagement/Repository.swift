@@ -19,46 +19,36 @@ class Repository{
     //Check on Server if User is logged
     //For testing user's token == id in Server DB Table
     func checkOnServerIfCurrentUserIsLogged(dc:DataController, userToken: String){
-        dataController = dc
-        
+     dataController = dc
+
         if(!isInternet){
             print("Show allert = No Internet")
         }else{
-            let url = URL(string: (ConectData().testIsLoggedEndpoint))!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
             
-            let bodyData: String = "uid=\(userToken)"
-            request.httpBody = bodyData.data(using: .utf8)
-            
-            let dataTask = URLSession.shared.dataTask(with: request){ [weak self]
-                (data, response, error) in
+            NetworkService.connectToServer(bodyDataText: "uid=\(userToken)") {  [weak self] resultData, resultError in
                 guard let self = self else{return}
-                do {
-                    if let d = data {
-                        let decodedJson = try JSONDecoder().decode([IsLoggedResponseData].self, from: d)
-
-                        DispatchQueue.main.async {
-                            self.dataController!.isStayLoggedInApp(data: decodedJson[0])
-                        }
-                        //If on server User status is not logged -> delete current user token in app.
-                        if(decodedJson[0].state == "2"||decodedJson[0].state == "0"){
-                            self.deleteUserTokenInApp()
-                        }
-                        
-                    } else {
-                        print("NO DATA1 \(String(describing: data))")
-                        print("NO DATA2 \(String(describing: response))")
-                        print("NO DATA3 \(String(describing: error))")
+                if(resultData != nil){
+                   
+                    do {
+                        guard let d = resultData else {return}
+                            let decodedJson = try JSONDecoder().decode([IsLoggedResponseData].self, from: d)
+                    
+                            DispatchQueue.main.async {
+                                self.dataController!.isStayLoggedInApp(data: decodedJson[0])
+                            }
+                            //If on server User status is not logged -> delete current user token in app.
+                            if(decodedJson[0].state == "2"||decodedJson[0].state == "0"){
+                                self.deleteUserTokenInApp()
+                            }
+                            
+                    }catch{
+                        print("ERROR")
                         self.dataController = nil
                     }
-                }catch{
-                    print("ERROR")
-                    self.dataController = nil
+                }else{
+                    print("ERROR: \(String(describing: resultError))")
                 }
             }
-            dataTask.resume()
-            
         }
     }
     
