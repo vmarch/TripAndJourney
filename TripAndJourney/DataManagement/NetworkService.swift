@@ -7,9 +7,9 @@
 
 import Foundation
 class NetworkService{
-    class func connectToServer(bodyDataText: String, completion: @escaping (Data?, Error?) -> ()){
+    class func connectToServer(url: URL, bodyDataText: String, completion: @escaping (Data?, Error?) -> ()){
         
-        let url = URL(string: (ConectData().testIsLoggedEndpoint))!
+        let url = url
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
