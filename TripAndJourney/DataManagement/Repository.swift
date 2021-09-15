@@ -12,14 +12,14 @@ class Repository{
     
     var userLoggedIn: Bool = false
     
-    var dc:DataController? = nil
+    var dataController:DataController? = nil
     
     init(){}
     
     //Check on Server if User is logged
     //For testing user's token == id in Server DB Table
     func checkOnServerIfCurrentUserIsLogged(dc:DataController, userToken: String){
-        self.dc = dc
+        dataController = dc
         
         if(!isInternet){
             print("Show allert = No Internet")
@@ -31,27 +31,30 @@ class Repository{
             let bodyData: String = "uid=\(userToken)"
             request.httpBody = bodyData.data(using: .utf8)
             
-            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+            let dataTask = URLSession.shared.dataTask(with: request){ [weak self]
                 (data, response, error) in
+                guard let self = self else{return}
                 do {
                     if let d = data {
                         let decodedJson = try JSONDecoder().decode([IsLoggedResponseData].self, from: d)
 
                         DispatchQueue.main.async {
-                            self.dc?.isStayLoggedInApp(data: decodedJson[0])
+                            self.dataController!.isStayLoggedInApp(data: decodedJson[0])
                         }
                         //If on server User status is not logged -> delete current user token in app.
                         if(decodedJson[0].state == "2"||decodedJson[0].state == "0"){
-                            deleteUserTokenInApp()
+                            self.deleteUserTokenInApp()
                         }
                         
                     } else {
-                        print("NO DATA")
-                        self.dc = nil
+                        print("NO DATA1 \(String(describing: data))")
+                        print("NO DATA2 \(String(describing: response))")
+                        print("NO DATA3 \(String(describing: error))")
+                        self.dataController = nil
                     }
                 }catch{
                     print("ERROR")
-                    self.dc = nil
+                    self.dataController = nil
                 }
             }
             dataTask.resume()
@@ -76,7 +79,8 @@ class Repository{
     
     //Authenticate with LoginName and Password
     func login(dc: DataController, signInData:SignInData){
-        self.dc = dc
+     
+        self.dataController = dc
         
         if(!isInternet){
             userLoggedIn = server.login(login: signInData.username, password: signInData.password)
@@ -89,28 +93,32 @@ class Repository{
             let bodyData: String = "username=\(signInData.username)&password=\(signInData.password)"
             request.httpBody = bodyData.data(using: .utf8)
             
-            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+            let dataTask = URLSession.shared.dataTask(with: request){ [weak self]
                 (data, response, error) in
+                guard let self = self else{return}
                 do {
                     if let d = data {
                         
                         let decodedJson = try JSONDecoder().decode([LoginResponseData].self, from: d)
-
+                       
                         DispatchQueue.main.async {
-                            self.dc?.isLoggedIn(data: decodedJson[0])
+                            self.dataController!.isLoggedIn(data: decodedJson[0])
                         }
                         //Change user login status on server if user logged in.
                         if(decodedJson[0].state == "3"){
-                            changeUserLoginStatusOnServer(userToken:decodedJson[0].uid,changeStatusTo: true)
+                            self.changeUserLoginStatusOnServer(userToken:decodedJson[0].uid,changeStatusTo: true)
                         }
                         
                     } else {
-                        print("NO DATA")
-                        self.dc = nil
+                        print("NO DATA1 \(String(describing: data))")
+                        print("NO DATA2 \(String(describing: response))")
+                        print("NO DATA3 \(String(describing: error))")
+                        self.dataController = nil
                     }
                 }catch{
                     print("ERROR")
-                    self.dc = nil
+                   
+                    self.dataController = nil
                 }
             }
             dataTask.resume()
@@ -119,7 +127,8 @@ class Repository{
     
     //Register with LoginName and Password
     func register(dc: DataController, signUpData: SignUpData){
-        self.dc = dc
+        self.dataController = dc
+        
         if(!isInternet){
             userLoggedIn = server.register(login: signUpData.email, password: signUpData.password)
         }else{
@@ -131,23 +140,28 @@ class Repository{
             let bodyData: String = "username=\(signUpData.email)&password=\(signUpData.password)&email=\(signUpData.email)"
             request.httpBody = bodyData.data(using: .utf8)
             
-            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+            let dataTask = URLSession.shared.dataTask(with: request){ [weak self]
                 (data, response, error) in
+                guard let self = self else{return}
                 do {
                     if let d = data {
                         let decodedJson = try JSONDecoder().decode([RegisterResponseData].self, from: d)
-                        
+                        guard let dataController = self.dataController else { return }
+
                         DispatchQueue.main.async {
-                            self.dc?.isPreRegistered(data: decodedJson[0])
+
+                           dataController.isPreRegistered(data: decodedJson[0])
                         }
                         
                     } else {
-                        print("NO DATA")
-                        self.dc = nil
+                        print("NO DATA1 \(String(describing: data))")
+                        print("NO DATA2 \(String(describing: response))")
+                        print("NO DATA3 \(String(describing: error))")
+                        self.dataController = nil
                     }
                 }catch{
                     print("ERROR")
-                    self.dc = nil
+                    self.dataController = nil
                 }
             }
             dataTask.resume()
@@ -174,9 +188,9 @@ class Repository{
             let bodyData: String = "uid=\(userToken)&status=\(status)"
             request.httpBody = bodyData.data(using: .utf8)
             
-            let dataTask = URLSession.shared.dataTask(with: request){ [self]
+            let dataTask = URLSession.shared.dataTask(with: request){ //[weak self]
                 (data, response, error) in
-
+             //   guard let self = self else{return}
                 do {
                     if let d = data {
 
@@ -185,7 +199,9 @@ class Repository{
                         //      self.dc?.isStayLoggedInApp(data: decodedJson[0])
                         //  }
                     } else {
-                        print("NO DATA")
+                        print("NO DATA1 \(String(describing: data))")
+                        print("NO DATA2 \(String(describing: response))")
+                        print("NO DATA3 \(String(describing: error))")
                     }
                 }catch{
                     print("ERROR")

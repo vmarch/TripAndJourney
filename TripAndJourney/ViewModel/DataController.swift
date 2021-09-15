@@ -48,7 +48,7 @@ final class DataController: ObservableObject{
     
     //Used after getting Response from authentication server.
     private func deleteDCInstanceFromRepository(){
-        repository.dc = nil
+        repository.dataController = nil
     }
     
     //---------------------------------------------
