@@ -221,7 +221,7 @@ struct ContentView: View {
                 }
                 
             }}.alert(isPresented: $dc.showAlert) {
-                Alert(title: Text("\(dc.errorTitle)"), message: Text(dc.errorText), dismissButton: .cancel())
+                Alert(title: Text("\(dc.messageTitle)"), message: Text(dc.messageText), dismissButton: .cancel())
                /*Alert(
                     title: Text("Are you sure you want to delete this?"),
                     message: Text("There is no undo"),
