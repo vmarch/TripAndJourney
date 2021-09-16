@@ -20,7 +20,7 @@ struct ContentView: View {
                 LinearGradient(gradient: Gradient(colors: [.blue,.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all)
                 
-                if(self.dc.viewSelector == .main && self.dc.userIsLoggedIn){
+                if(self.dc.viewSelector == .main){
                     
                     VStack{
                         

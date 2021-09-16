@@ -5,6 +5,10 @@
 //  Created by devtolife on 12.09.21.
 //
 
+/*
+For testing user's "token" == "id" in Server DB Table
+*/
+
 import Foundation
 class Repository{
     private var server: DummyServer = DummyServer()
@@ -16,8 +20,11 @@ class Repository{
     
     init(){}
     
+    //====================================================================
+    //---------------------- CHECK IF LOGGED--------------------------
+    //--------------------------------------------------------------------
+    
     //Check on Server if User is logged
-    //For testing user's token == id in Server DB Table
     func checkOnServerIfCurrentUserIsLogged(dc:DataController, userToken: String){
      dataController = dc
 
@@ -54,25 +61,13 @@ class Repository{
             }
         }
     }
-    
-    //Check if some Token is saved in App.
-    func checkUserTokenInApp() -> String{
-        return UserPreferences().getUserTokenSavedInApp()
-    }
-    
-    //Save User's Token in App
-    func saveUserTokenInApp(userToken: String){
-        UserPreferences().setUserTokenInApp(userToken: userToken)
-    }
-    
-    private func deleteUserTokenInApp() {
-        //Clear User Token which was saved in app.
-        UserPreferences().clearUserTokenSavedInApp()
-    }
+
+    //====================================================================
+    //---------------------------- LOGIN --------------------------------
+    //--------------------------------------------------------------------
     
     //Authenticate with LoginName and Password
     func login(dc: DataController, signInData:SignInData){
-     
      dataController = dc
         
         if(!isInternet){
@@ -92,10 +87,6 @@ class Repository{
                                 guard let dataController = self.dataController else { return }
                                 dataController.isLoggedIn(data: decodedJson[0])
                             }
-                            //Change user login status on server if user logged in.
-                            if(decodedJson[0].state == "3"){
-                                self.changeUserLoginStatusOnServer(userToken:decodedJson[0].uid,changeStatusTo: true)
-                            }
                     }catch{
                         print("ERROR")
                         self.dataController = nil
@@ -107,6 +98,10 @@ class Repository{
             }
         }
     }
+    
+    //====================================================================
+    //---------------------------- REGISTER --------------------------------
+    //--------------------------------------------------------------------
     
     //Register with LoginName and Password
     func register(dc: DataController, signUpData: SignUpData){
@@ -147,8 +142,17 @@ class Repository{
         }
     }
     
+    //====================================================================
+    //---------------------------- LOGOUT --------------------------------
+    //--------------------------------------------------------------------
+    
+    //Logout from Server and App.
+    func logout(){
+        changeUserLoginStatusOnServer(userToken:checkUserTokenInApp(),changeStatusTo: false)
+        deleteUserTokenInApp()
+    }
+    
     //Change User's login status on server.
-    //For testing user's "token" == "id" of user in Server Table
     private func changeUserLoginStatusOnServer(userToken: String, changeStatusTo:Bool){
         
         if(!isInternet){
@@ -188,10 +192,23 @@ class Repository{
         }
     }
     
-    //Logout from Server and App.
-    //For testing user's token == id in Server DB Table
-    func logout(){
-        changeUserLoginStatusOnServer(userToken:checkUserTokenInApp(),changeStatusTo: false)
-        deleteUserTokenInApp()
+    //====================================================================
+    //---------------- Manage user status in Preferences -----------------
+    //--------------------------------------------------------------------
+    
+    //Check if some Token is saved in App.
+    func checkUserTokenInApp() -> String{
+        return UserPreferences().getUserTokenSavedInApp()
     }
+    
+    //Save User's Token in App
+    func saveUserTokenInApp(userToken: String){
+        UserPreferences().setUserTokenInApp(userToken: userToken)
+    }
+    
+    private func deleteUserTokenInApp() {
+        //Clear User Token which was saved in app.
+        UserPreferences().clearUserTokenSavedInApp()
+    }
+    
 }
