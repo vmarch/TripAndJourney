@@ -13,6 +13,7 @@ struct WaitView: View{
         Text("Waiting for the response from server...").frame(width: 200, height: 500, alignment: .center).multilineTextAlignment(TextAlignment.center)
             .foregroundColor(.white)
             .font(.system(size: 28, weight: .medium))
+            .shadow(radius: 5)
             .padding()
     }
 }

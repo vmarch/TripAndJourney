@@ -20,7 +20,7 @@ struct ContentView: View {
                 LinearGradient(gradient: Gradient(colors: [.blue,.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all)
                 
-                if(self.dc.viewSelector == .main){
+                if(self.dc.viewSelector == .main && self.dc.userIsLoggedIn){
                     
                     VStack{
                         
@@ -134,7 +134,7 @@ struct ContentView: View {
                             
                         }
                     }
-                    .navigationBarTitle("Top 13 Places DE", displayMode: .inline)
+                    .navigationBarTitle("Trip & Jorney", displayMode: .inline)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(trailing:
                                             HStack{
