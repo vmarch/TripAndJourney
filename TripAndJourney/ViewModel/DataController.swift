@@ -12,7 +12,7 @@ final class DataController: ObservableObject{
     
     private var repository: Repository = Repository()
     
-    @Published var viewSelector:ViewSelector = .start
+    @Published var viewSelector: ViewSelector = .start
     
     @StateObject private var userLocationManager = UserLocationManager()
     
@@ -22,8 +22,8 @@ final class DataController: ObservableObject{
     @Published var signUpData: SignUpData = SignUpData(firstName: "", lastName: "", nick: "" , age: 0 , city: "", email: "", password: "")
     
     @Published var showAlert: Bool = false
-    @Published var errorTitle: String = ""
-    @Published var errorText: String = ""
+    @Published var messageTitle: String = ""
+    @Published var messageText: String = ""
     
     private var aData: [Place] = []
     @Published var aDataFilteredList: [Place] = []
@@ -48,15 +48,15 @@ final class DataController: ObservableObject{
     
     //Used after getting Response from authentication server.
     private func deleteDCInstanceFromRepository(){
-        repository.dc = nil
+        repository.dataController = nil
     }
     
     //---------------------------------------------
     
    private func showAllert(showAlert:Bool, errorTitle: String, errorText: String ){
         self.showAlert = showAlert
-        self.errorTitle = errorTitle
-        self.errorText = errorText
+        self.messageTitle = errorTitle
+        self.messageText = errorText
         
     }
     
@@ -226,7 +226,7 @@ final class DataController: ObservableObject{
         print("<<<<< DC >>>>> isPreRegistered() -> data: \(data)")
         
         if(data.state == "3"){
-            showAllert(showAlert: true, errorTitle: "Info", errorText: "User already in DataBase, but stiil waiting for  confirmation. Please open your e-mail and confirm registration.")
+            showAllert(showAlert: true, errorTitle: "Info", errorText: "User added into DataBase and waiting for confirmation. Please open your e-mail and confirm registration.")
             self.viewSelector = .login
         }else if(data.state == "1"){
             
