@@ -11,7 +11,6 @@ struct FiltersView: View {
     @Binding var rankingChoice: Ranking
     @Binding var isFilterActive: Bool
     @Binding var isSearchActive: Bool
-    @Binding var searchText: String
     
     var body: some View {
         if(isFilterActive){
@@ -21,7 +20,7 @@ struct FiltersView: View {
                 .animation(.linear)
         }
         if(isSearchActive){
-            SearchView(searchText: $searchText)
+            SearchView()
                 .padding(.horizontal, 8)
                 .transition(.move(edge: .trailing))
                 .animation(.linear)
@@ -36,6 +35,6 @@ struct FiltersView_Previews: PreviewProvider {
     @State static var searchText: String = ""
     
     static var previews: some View {
-        FiltersView(rankingChoice: $rankingChoice, isFilterActive: $isFilterActive, isSearchActive: $isSearchActive, searchText: $searchText)
+        FiltersView(rankingChoice: $rankingChoice, isFilterActive: $isFilterActive, isSearchActive: $isSearchActive)
     }
 }

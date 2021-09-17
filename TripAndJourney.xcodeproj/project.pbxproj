@@ -20,6 +20,8 @@
 		3F0DD9A426EE42490088A347 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0DD9A326EE42490088A347 /* Place.swift */; };
 		3F0DD9A626EE42D10088A347 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0DD9A526EE42D10088A347 /* Extensions.swift */; };
 		3F2E085026F0C4EF005B4EB1 /* LoginStatusResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2E084F26F0C4EF005B4EB1 /* LoginStatusResponseData.swift */; };
+		3F2F492E26F51E670080FF08 /* BottomImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F492D26F51E670080FF08 /* BottomImageButton.swift */; };
+		3F2F493126F52C140080FF08 /* SearchClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F493026F52C140080FF08 /* SearchClearButton.swift */; };
 		3F4D819026F3A79600D03FFF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4D818F26F3A79600D03FFF /* NetworkService.swift */; };
 		3FED17F926EE7827007529FE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17F826EE7827007529FE /* LoginView.swift */; };
 		3FED17FB26EE78E1007529FE /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FED17FA26EE78E1007529FE /* RegisterView.swift */; };
@@ -64,6 +66,8 @@
 		3F0DD9A326EE42490088A347 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		3F0DD9A526EE42D10088A347 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3F2E084F26F0C4EF005B4EB1 /* LoginStatusResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStatusResponseData.swift; sourceTree = "<group>"; };
+		3F2F492D26F51E670080FF08 /* BottomImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomImageButton.swift; sourceTree = "<group>"; };
+		3F2F493026F52C140080FF08 /* SearchClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClearButton.swift; sourceTree = "<group>"; };
 		3F4D818F26F3A79600D03FFF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3FED17F826EE7827007529FE /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3FED17FA26EE78E1007529FE /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 		3F0DD99026EE3D4F0088A347 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3FED181726EE806F007529FE /* Filters */,
 				3FED17F726EE73CB007529FE /* MainViews */,
 				3FED17F626EE7378007529FE /* Authentication */,
 			);
@@ -197,6 +202,14 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		3F2F492F26F52BFB0080FF08 /* FiltersElements */ = {
+			isa = PBXGroup;
+			children = (
+				3F2F493026F52C140080FF08 /* SearchClearButton.swift */,
+			);
+			path = FiltersElements;
+			sourceTree = "<group>";
+		};
 		3FED17F626EE7378007529FE /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +225,6 @@
 		3FED17F726EE73CB007529FE /* MainViews */ = {
 			isa = PBXGroup;
 			children = (
-				3FED181726EE806F007529FE /* Filters */,
 				3FED181226EE7F96007529FE /* MainViewElements */,
 				3FED180A26EE7EC0007529FE /* ListView.swift */,
 				3FED180C26EE7EDB007529FE /* GridView.swift */,
@@ -241,6 +253,7 @@
 		3FED181226EE7F96007529FE /* MainViewElements */ = {
 			isa = PBXGroup;
 			children = (
+				3F2F492D26F51E670080FF08 /* BottomImageButton.swift */,
 				3FED181A26EE813D007529FE /* RankingView.swift */,
 				3FED181326EE8005007529FE /* ListViewCell.swift */,
 				3FED181526EE802D007529FE /* GridViewCell.swift */,
@@ -251,6 +264,7 @@
 		3FED181726EE806F007529FE /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				3F2F492F26F52BFB0080FF08 /* FiltersElements */,
 				3FED181826EE80B2007529FE /* FiltersView.swift */,
 				3FED181E26EE81CF007529FE /* SearchView.swift */,
 				3FED182226EE82B4007529FE /* RankingFilterView.swift */,
@@ -366,6 +380,7 @@
 				3FED185326EEAD1D007529FE /* ConectData.swift in Sources */,
 				3FED182926EE83E9007529FE /* UserLocationManager.swift in Sources */,
 				3F0DD99E26EE405C0088A347 /* SignUpData.swift in Sources */,
+				3F2F493126F52C140080FF08 /* SearchClearButton.swift in Sources */,
 				3FFFD02C26EF7EE000244EB8 /* IsLoggedResponseData.swift in Sources */,
 				3F0DD99826EE3F7D0088A347 /* LoginResponseData.swift in Sources */,
 				3FED181D26EE8180007529FE /* Ranking.swift in Sources */,
@@ -392,6 +407,7 @@
 				3FED181F26EE81CF007529FE /* SearchView.swift in Sources */,
 				3F0DD98026EE28B60088A347 /* TripAndJourneyApp.swift in Sources */,
 				3FED180D26EE7EDB007529FE /* GridView.swift in Sources */,
+				3F2F492E26F51E670080FF08 /* BottomImageButton.swift in Sources */,
 				3F0DD99A26EE3FAA0088A347 /* RegisterResponseData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

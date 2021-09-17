@@ -9,13 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject var dc:DataController = DataController()
+    @EnvironmentObject var dc:DataController
     
     @State var viewID: Int = 1
     
     var body: some View {
-        
-        NavigationView{
             ZStack(){
                 LinearGradient(gradient: Gradient(colors: [.blue,.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all)
@@ -28,10 +26,8 @@ struct ContentView: View {
                         FiltersView(rankingChoice: $dc.rankingChoice.didSet(execute: { (search) in
                             self.dc.filterData()
                         }), isFilterActive: $dc.isFilterActive,
-                                    isSearchActive: $dc.isSearchActive,
-                                    searchText: $dc.searchText.didSet(execute: { (search) in
-                            self.dc.filterData()
-                        }))
+                                    isSearchActive: $dc.isSearchActive
+                        )
                         
                         if(self.dc.lookingAs == .list){
                             ListView(listData: $dc.aDataFilteredList )
@@ -63,17 +59,9 @@ struct ContentView: View {
                                 self.dc.lookingAs = LookingAs.list
                             }, label: {
                                 if(self.dc.lookingAs == LookingAs.list){
-                                    Image(systemName: "list.bullet.rectangle.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.yellow)
-                                        .frame(height: 16)
+                                    BottomImageButton(imageSystemName: "list.bullet.rectangle.fill", iconColor: .yellow)
                                 }else{
-                                    Image(systemName: "list.bullet.rectangle")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.blue)
-                                        .frame(height: 16)
+                                    BottomImageButton(imageSystemName: "list.bullet.rectangle", iconColor: .blue)
                                 }
                                 
                             }
@@ -83,17 +71,9 @@ struct ContentView: View {
                                 self.dc.lookingAs = LookingAs.grid
                             }, label: {
                                 if(self.dc.lookingAs == LookingAs.grid){
-                                    Image(systemName: "rectangle.grid.2x2.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.yellow)
-                                        .frame(height: 20)
+                                    BottomImageButton(imageSystemName: "rectangle.grid.2x2.fill", iconColor: .yellow)
                                 }else{
-                                    Image(systemName: "rectangle.grid.2x2")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.blue)
-                                        .frame(height: 20)
+                                    BottomImageButton(imageSystemName: "rectangle.grid.2x2", iconColor: .blue)
                                 }
                                 
                             }
@@ -103,18 +83,10 @@ struct ContentView: View {
                                 self.dc.lookingAs = LookingAs.map
                             }, label: {
                                 if(self.dc.lookingAs == LookingAs.map){
-                                    Image(systemName: "map.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.yellow)
-                                        .frame(height: 20)
+                                    BottomImageButton(imageSystemName: "map.fill", iconColor: .yellow)
                                 }else{
-                                    Image(systemName: "map")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.blue)
-                                        .frame(height: 20)
-                                }
+                                    BottomImageButton(imageSystemName: "map", iconColor: .blue)
+                                  }
                                 
                             }
                             )
@@ -122,12 +94,7 @@ struct ContentView: View {
                             Button(action: {
                                 self.dc.logOut()
                             }, label: {
-                                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.yellow)
-                                        .frame(height: 20)
-                               
+                                BottomImageButton(imageSystemName: "rectangle.portrait.and.arrow.right", iconColor: .blue)
                             }
                             )
                             Spacer()
@@ -220,7 +187,7 @@ struct ContentView: View {
                     }
                 }
                 
-            }}.alert(isPresented: $dc.showAlert) {
+            }.alert(isPresented: $dc.showAlert) {
                 Alert(title: Text("\(dc.messageTitle)"), message: Text(dc.messageText), dismissButton: .cancel())
                /*Alert(
                     title: Text("Are you sure you want to delete this?"),
@@ -243,6 +210,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        NavigationView{
+            ContentView()
+        }.environmentObject(DataController())
     }
 }

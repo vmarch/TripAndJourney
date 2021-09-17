@@ -31,7 +31,11 @@ final class DataController: ObservableObject{
     @Published var rankingChoice: Ranking = Ranking(one: true, two: true, three: true, four: true, five: true)
     @Published var isFilterActive: Bool = false
     @Published var isSearchActive: Bool = false
-    @Published var searchText: String = ""
+    @Published var searchText: String = "" {
+        didSet{
+          filterData()
+        }
+    }
     
     @Published var lookingAs = LookingAs.list
     
