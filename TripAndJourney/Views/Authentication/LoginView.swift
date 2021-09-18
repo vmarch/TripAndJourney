@@ -9,11 +9,10 @@
 import SwiftUI
 
 struct LoginView: View{
-    
+    @EnvironmentObject var dc:DataController
     @Binding var output:Int
-    @Binding var signInData:SignInData
-    
-    @State var loginData:String = ""
+     
+  //  @State var loginData:String = ""
     @State var passData:String = ""
     
     var body: some View{
@@ -21,23 +20,36 @@ struct LoginView: View{
             
             TitleNameView()
             
-            LoginField(loginName: $loginData)
+            LoginField()
             PasswordField(password: $passData)
             
             Button(action:{
-                if(!self.loginData.isEmpty && !self.passData.isEmpty){
-                  
-                    self.signInData.username = self.loginData
-                    self.signInData.password = self.passData
-                    print ("<<<<< SignInView >>>>> login: \(signInData.username), password: \(signInData.password)")
-                    output = 3
-                }else{
-                    print("Login and Password may not be Empty")
-                }
-                
-               
+                dc.loginButtonPressed = true
+         
             }){
-                MainButtonBackground(title: "Login")
+                //TODO change login BAckground
+                //
+                if(dc.isReadyToLogin){
+                    
+                    Text("Login")
+                                       .frame(width: 200, height: 50, alignment: .center)
+                                       .background(Color.blue)
+                                       .foregroundColor(.black)
+                                       .font(.system(size: 32, weight: .medium))
+                                       .cornerRadius(15)
+                                       .padding()
+                }else{
+                    Text("Login")
+                                       .frame(width: 200, height: 50, alignment: .center)
+                                       .background(Color.secondary)
+                                       .foregroundColor(.black)
+                                       .font(.system(size: 32, weight: .medium))
+                                       .cornerRadius(15)
+                                       .padding()
+
+                }
+               
+              //  MainButtonBackground(title: "Login")
             }
             
             Button(action:{
@@ -61,9 +73,10 @@ struct TitleNameView: View {
 }
 
 struct LoginField: View {
-    @Binding var loginName:String
+    @EnvironmentObject var dc:DataController
+   // @Binding var loginName:String
     var body: some View {
-        TextField("Login:", text: $loginName).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
+        TextField("Login:", text: $dc.loginName).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2)
     }
 }
 
@@ -76,8 +89,7 @@ struct PasswordField: View {
 
 struct LoginView_Previews: PreviewProvider {
     @State static var output:Int = 0
-    @State static var signInData: SignInData = SignInData(username: "", password: "")
     static var previews: some View {
-        LoginView(output: $output, signInData: $signInData)
+        LoginView(output: $output)
     }
 }

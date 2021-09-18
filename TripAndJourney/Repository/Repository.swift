@@ -67,14 +67,14 @@ class Repository{
     //--------------------------------------------------------------------
     
     //Authenticate with LoginName and Password
-    func login(dc: DataController, signInData:SignInData){
+    func login(dc: DataController,login: String, password: String){
      dataController = dc
         
         if(!isInternet){
-            userLoggedIn = server.login(login: signInData.username, password: signInData.password)
+            userLoggedIn = server.login(login: login, password: password)
         }else{
             let url = URL(string: (ConectData().testLogintEndpoint))!
-            let bodyData: String = "username=\(signInData.username)&password=\(signInData.password)"
+            let bodyData: String = "username=\(login)&password=\(password)"
             NetworkService.connectToServer(url: url, bodyDataText: bodyData) {  [weak self] resultData, resultError in
                 guard let self = self else{return}
                 if(resultData != nil){

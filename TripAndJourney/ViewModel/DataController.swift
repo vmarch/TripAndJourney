@@ -17,8 +17,8 @@ final class DataController: ObservableObject{
     @StateObject private var userLocationManager = UserLocationManager()
     
     @Published var userIsLoggedIn: Bool = false
-    
-    @Published var signInData: SignInData = SignInData(username: "", password: "")
+        
+   
     @Published var signUpData: SignUpData = SignUpData(firstName: "", lastName: "", nick: "" , age: 0 , city: "", email: "", password: "")
     
     @Published var showAlert: Bool = false
@@ -166,10 +166,57 @@ final class DataController: ObservableObject{
         aDataFilteredList = tempFilteredList
     }
     
-    //Authenticate with LoginName and Password
+    
+    //=========================================================================
+    //--------------------------------- LOGIN ---------------------------------
+    //=========================================================================
+    
+    //-------------------- Login --------------------
+    @Published var loginName: String = "" {
+        didSet{
+          showIfReadyToLogin()
+        }
+    }
+    @Published var loginPassword: String = ""{
+        didSet{
+            showIfReadyToLogin()
+        }
+    }
+    @Published var isReadyToLogin: Bool = false
+    @Published var loginButtonPressed: Bool = false {
+        didSet{
+          loginButtonAction()
+        }
+    }
+    
+    //-------------------- Methods ---------------
+
+    func showIfReadyToLogin(){
+        if(!loginName.isEmpty && !loginPassword.isEmpty){
+
+            print ("<<<<< DC Ready to LOGIN >>>>> login: \(loginName), password: \(loginPassword)")
+            isReadyToLogin = true
+        }else{
+            isReadyToLogin = false
+        }
+    }
+    
+    func loginButtonAction(){
+        if(isReadyToLogin){
+            viewSelector = .wait
+            tryLogin()
+        }else{
+            showAllert()
+        }
+    }
+    
+    func showAllert(){
+        //TODO     !!!!!!!!!!!!!!
+    }
+    
     func tryLogin(){
-        print ("<<<<< DC >>>>> tryLogin() -> --1-- login: \(self.signInData.username), password: \(self.signInData.password)")
-        repository.login(dc: self, signInData: signInData)
+        print ("<<<<< DC >>>>> tryLogin() -> --1-- login: \(loginName), password: \(loginPassword)")
+        repository.login(dc: self, login: loginName, password: loginPassword)
     }
     
     //Respond by login:
@@ -213,6 +260,9 @@ final class DataController: ObservableObject{
         deleteDCInstanceFromRepository()
     }
     
+    //=========================================================================
+    //---------------------------- END of LOGIN -------------------------------
+    //=========================================================================
     
     
     //Register with LoginName and Password

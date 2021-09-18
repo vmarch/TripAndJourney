@@ -163,12 +163,9 @@ struct ContentView: View {
                                 self.dc.viewSelector = .login
                             }else if(viewID == 2){
                                 self.dc.viewSelector = .register
-                            }else if (viewID == 3) {
-                                self.dc.viewSelector = .wait
-                                self.tryToLogin()
                             }
                             
-                        }), signInData: $dc.signInData)
+                        }))
                     }else if(self.dc.viewSelector == .register){
                         // ----------- SignUpView --------------
                         RegisterView(output: $viewID.didSet(execute: { (state) in
