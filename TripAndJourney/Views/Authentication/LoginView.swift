@@ -13,7 +13,7 @@ struct LoginView: View{
     @Binding var output:Int
      
   //  @State var loginData:String = ""
-    @State var passData:String = ""
+  //  @State var passData:String = ""
     
     var body: some View{
         VStack{
@@ -21,7 +21,7 @@ struct LoginView: View{
             TitleNameView()
             
             LoginField()
-            PasswordField(password: $passData)
+            PasswordField()
             
             Button(action:{
                 dc.loginButtonPressed = true
@@ -81,9 +81,10 @@ struct LoginField: View {
 }
 
 struct PasswordField: View {
-    @Binding var password:String
+   // @Binding var password:String
+    @EnvironmentObject var dc:DataController
     var body: some View {
-        SecureField("Password:", text: $password).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2).autocapitalization(.none)
+        SecureField("Password:", text: $dc.loginPassword).autocapitalization(UITextAutocapitalizationType.none).disableAutocorrection(true).padding().frame(width: 300, height: 40).background(Color.white).cornerRadius(6).padding(2).autocapitalization(.none)
     }
 }
 
