@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct TripAndJourneyApp: App {
     @StateObject var dc: DataController = DataController()
-    
+   
     var body: some Scene {
         WindowGroup {
             NavigationView{

@@ -175,7 +175,7 @@ struct ContentView: View {
                                 self.dc.viewSelector = .register
                             }else if (viewID == 3) {
                                 self.dc.viewSelector = .wait
-                                self.tryToRegister()
+                                self.dc.tryRegister()
                             }
                         }), signUpData: $dc.signUpData)
                     } else if(self.dc.viewSelector == .wait){
@@ -195,13 +195,6 @@ struct ContentView: View {
                     secondaryButton: .cancel()
                 )*/
             }
-    }
-    func tryToLogin(){
-        self.dc.tryLogin()
-    }
-    
-    func tryToRegister(){
-        self.dc.tryRegister()
     }
 }
 
